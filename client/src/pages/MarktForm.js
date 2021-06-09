@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import styled from 'styled-components/macro';
-import RenderImanges from '../components/ImageUploud.js';
 export default function MarktForm({ onAddMarkt }) {
   const initialMarktState = {
     name: '',
@@ -12,7 +11,6 @@ export default function MarktForm({ onAddMarkt }) {
   };
 
   const [markt, setMarkt] = useState(initialMarktState);
-  const [images, setImages] = useState([]);
 
   function updateMarkt(event) {
     const fieldName = event.target.name;
@@ -21,16 +19,12 @@ export default function MarktForm({ onAddMarkt }) {
     setMarkt({ ...markt, [fieldName]: fieldValue });
   }
 
-  function updateImages(imagesToAdd) {
-    setMarkt({ ...markt, images: [...markt.images, imagesToAdd] });
-  }
-
   function handleFormSubmit(event) {
     event.preventDefault();
     onAddMarkt(markt);
+    setMarkt(initialMarktState);
   }
 
-  console.log(markt);
   return (
     <div>
       <Form onSubmit={handleFormSubmit}>
@@ -49,10 +43,10 @@ export default function MarktForm({ onAddMarkt }) {
           onChange={updateMarkt}
           value={markt.street}
         />
-        <label htmlFor="adress"> PLZ / ORT </label>
+        <label htmlFor="address"> PLZ / ORT </label>
         <input
           type="text"
-          name="adress"
+          name="address"
           onChange={updateMarkt}
           value={markt.adress}
         />
@@ -63,7 +57,6 @@ export default function MarktForm({ onAddMarkt }) {
           onChange={updateMarkt}
           value={markt.description}
         />
-        <RenderImanges onUpdateImages={updateImages} />
         <Button isPrimary onClick={handleFormSubmit}>
           Markt erstellen.
         </Button>
