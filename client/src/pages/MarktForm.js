@@ -48,7 +48,7 @@ export default function MarktForm({ onAddMarkt }) {
           type="text"
           name="address"
           onChange={updateMarkt}
-          value={markt.adress}
+          value={markt.address}
         />
         <label htmlFor="description"> Beschreibung </label>
         <input

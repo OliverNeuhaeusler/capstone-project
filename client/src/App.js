@@ -8,23 +8,18 @@ import MarktForm from './pages/MarktForm.js';
 
 function App() {
   const [markts, setMarkts] = useState(loadFromLocalStorage('Märkte') ?? []);
-  const [comments, setComments] = useState(
-    loadFromLocalStorage('Comments') ?? []
-  );
 
   function addComment(comment, marktToUpdate) {
-    const foundMarkt = markts.find((markt) => {
-      return markt.name === marktToUpdate.name;
+    const updatedMarkets = markts.map((markt) => {
+      // @TODO: Replace .name with ._id later when markets are fetched from API / DB
+      if (markt.name === marktToUpdate.name) {
+        markt.comments.push(comment);
+      }
+      return markt;
     });
-    foundMarkt.comments.push(comment);
-    const upToDateMarkts = markts.filter((markt) => {
-      return markt.name !== marktToUpdate.name;
-    });
-    setMarkts([...upToDateMarkts, foundMarkt]);
+
+    setMarkts(updatedMarkets);
   }
-  useEffect(() => {
-    saveToLocalStorage('Comments', comments);
-  }, [comments]);
 
   useEffect(() => {
     saveToLocalStorage('Märkte', markts);
@@ -47,11 +42,7 @@ function App() {
           </Route>
           <Route path="/markt">
             {markts.map((markt) => (
-              <MarktCard
-                markt={markt}
-                onAddComment={addComment}
-                comments={comments}
-              />
+              <MarktCard markt={markt} onAddComment={addComment} />
             ))}
           </Route>
           <Route path="/favorites">Favoriten</Route>

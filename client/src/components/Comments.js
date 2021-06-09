@@ -45,6 +45,7 @@ const Tag = styled.section`
   gap: 0.2rem;
   font-family: sans-serif;
   border: 2px groove goldenrod;
+  border-radius: 1rem;
   padding: 0.5rem;
 
   input {

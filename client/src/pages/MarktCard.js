@@ -2,7 +2,7 @@ import styled from 'styled-components/macro';
 import { useState } from 'react';
 import RatingStar from '../components/Rating.js';
 
-function MarktCard({ markt, comments, onAddComment }) {
+function MarktCard({ markt, onAddComment }) {
   const [comment, setComment] = useState('');
 
   function handleChange(event) {
@@ -22,7 +22,7 @@ function MarktCard({ markt, comments, onAddComment }) {
     <Section>
       <h3>{markt.name}</h3>
       <p>{markt.street}</p>
-      <p>{markt.adress}</p>
+      <p>{markt.address}</p>
       <p>{markt.description}</p>
       <p>Bilder</p>
       <label htmlFor="comment">Kommentare</label>
@@ -45,6 +45,16 @@ function MarktCard({ markt, comments, onAddComment }) {
       <Rating>
         <RatingStar />
       </Rating>
+      <Button
+        type="button"
+        onClick={(e) => {
+          e.preventDefault();
+          window.location.href =
+            'https://www.google.de/maps/dir///@48.6205166,10.4120485,14z';
+        }}
+      >
+        Go to Maps
+      </Button>
     </Section>
   );
 }
@@ -53,7 +63,10 @@ export default MarktCard;
 
 const Section = styled.section`
   display: flex;
+  background: hsla(142, 30%, 25%, 0.6);
   border: groove 0.1rem goldenrod;
+  border-radius: 1rem;
+  color: hsl(37, 19%, 90%);
   justify-content: center;
   align-items: center;
   flex-direction: column;
@@ -78,6 +91,7 @@ const Comment = styled.section`
   gap: 0.2rem;
   font-family: sans-serif;
   border: 2px groove goldenrod;
+  border-radius: 0.6rem;
   padding: 0.5rem;
 
   input {
@@ -104,4 +118,16 @@ const CommentCloud = styled.article`
 const Rating = styled.span`
   margin: 0.6rem;
   z-index: 0;
+`;
+
+const Button = styled.button`
+  padding: 0.6rem;
+  border-radius: 0.4rem;
+  border: none;
+  background: hsl(158, 10%, 20%);
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1rem;
+  color: hsl(37, 19%, 95%);
+  margin: 0.5rem;
 `;
