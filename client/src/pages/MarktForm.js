@@ -5,9 +5,10 @@ export default function MarktForm({ onAddMarkt }) {
   const initialMarktState = {
     name: '',
     street: '',
-    adress: '',
+    address: '',
     description: '',
     images: [],
+    comments: [],
   };
 
   const [markt, setMarkt] = useState(initialMarktState);

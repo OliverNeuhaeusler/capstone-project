@@ -12,7 +12,7 @@ function MarktCard({ markt, comments, onAddComment }) {
   function handleKeyDown(event) {
     if (event.key === 'Enter') {
       event.preventDefault();
-      onAddComment(comment);
+      onAddComment(comment, markt);
       setComment('');
     }
   }
@@ -37,12 +37,11 @@ function MarktCard({ markt, comments, onAddComment }) {
           />
         </CommentCloud>
       </Comment>
-      {comments &&
-        comments.map((comment, index) => (
-          <>
-            <Span key={index + comment}>{comment}</Span>
-          </>
-        ))}
+      {markt.comments.map((comment, index) => (
+        <>
+          <Span key={index + comment}>{comment}</Span>
+        </>
+      ))}
       <Rating>
         <RatingStar />
       </Rating>

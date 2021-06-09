@@ -12,8 +12,15 @@ function App() {
     loadFromLocalStorage('Comments') ?? []
   );
 
-  function addComment(comment) {
-    setComments([...comments, comment]);
+  function addComment(comment, marktToUpdate) {
+    const foundMarkt = markts.find((markt) => {
+      return markt.name === marktToUpdate.name;
+    });
+    foundMarkt.comments.push(comment);
+    const upToDateMarkts = markts.filter((markt) => {
+      return markt.name !== marktToUpdate.name;
+    });
+    setMarkts([...upToDateMarkts, foundMarkt]);
   }
   useEffect(() => {
     saveToLocalStorage('Comments', comments);
