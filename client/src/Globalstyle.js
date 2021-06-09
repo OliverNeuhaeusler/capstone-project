@@ -8,5 +8,6 @@ export default createGlobalStyle`
 }
 body {
     background: hsl(37, 19%, 70%);
+    margin: 8rem auto;
 }
 `;
