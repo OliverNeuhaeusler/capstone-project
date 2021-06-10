@@ -16,8 +16,7 @@ function MarketCard({ market, onAddComment }) {
       setComment('');
     }
   }
-  console.log(market);
-  console.log(1, comment);
+
   return (
     <Section>
       <h3>{market.name}</h3>
