@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import styled from 'styled-components/macro';
-export default function MarktForm({ onAddMarkt }) {
-  const initialMarktState = {
+export default function MarketForm({ onAddMarket }) {
+  const initialMarketState = {
     name: '',
     street: '',
     address: '',
@@ -10,57 +10,57 @@ export default function MarktForm({ onAddMarkt }) {
     comments: [],
   };
 
-  const [markt, setMarkt] = useState(initialMarktState);
+  const [market, setMarket] = useState(initialMarketState);
 
-  function updateMarkt(event) {
+  function updateMarket(event) {
     const fieldName = event.target.name;
     let fieldValue = event.target.value;
 
-    setMarkt({ ...markt, [fieldName]: fieldValue });
+    setMarket({ ...market, [fieldName]: fieldValue });
   }
 
   function handleFormSubmit(event) {
     event.preventDefault();
-    onAddMarkt(markt);
-    setMarkt(initialMarktState);
+    onAddMarket(market);
+    setMarket(initialMarketState);
   }
 
   return (
     <div>
       <Form onSubmit={handleFormSubmit}>
         <h2>Markt erstellen.</h2>
-        <label htmlFor="marktName">Markt Name</label>
+        <label htmlFor="marketName">Markt Name</label>
         <input
           type="text"
           name="name"
-          onChange={updateMarkt}
-          value={markt.name}
+          onChange={updateMarket}
+          value={market.name}
         />
         <label htmlFor="street">Straße</label>
         <input
           type="name"
           name="street"
-          onChange={updateMarkt}
-          value={markt.street}
+          onChange={updateMarket}
+          value={market.street}
         />
         <label htmlFor="address"> PLZ / ORT </label>
         <input
           type="text"
           name="address"
-          onChange={updateMarkt}
-          value={markt.address}
+          onChange={updateMarket}
+          value={market.address}
         />
         <label htmlFor="description"> Beschreibung </label>
         <input
           type="text"
           name="description"
-          onChange={updateMarkt}
-          value={markt.description}
+          onChange={updateMarket}
+          value={market.description}
         />
         <Button isPrimary onClick={handleFormSubmit}>
           Markt erstellen.
         </Button>
-        <Button type="reset" onClick={() => setMarkt(initialMarktState)}>
+        <Button type="reset" onClick={() => setMarket(initialMarketState)}>
           Reset
         </Button>
       </Form>

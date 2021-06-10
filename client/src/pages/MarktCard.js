@@ -2,7 +2,7 @@ import styled from 'styled-components/macro';
 import { useState } from 'react';
 import RatingStar from '../components/Rating.js';
 
-function MarktCard({ markt, onAddComment }) {
+function MarketCard({ market, onAddComment }) {
   const [comment, setComment] = useState('');
 
   function handleChange(event) {
@@ -12,18 +12,18 @@ function MarktCard({ markt, onAddComment }) {
   function handleKeyDown(event) {
     if (event.key === 'Enter') {
       event.preventDefault();
-      onAddComment(comment, markt);
+      onAddComment(comment, market);
       setComment('');
     }
   }
-  console.log(markt);
+  console.log(market);
   console.log(1, comment);
   return (
     <Section>
-      <h3>{markt.name}</h3>
-      <p>{markt.street}</p>
-      <p>{markt.address}</p>
-      <p>{markt.description}</p>
+      <h3>{market.name}</h3>
+      <p>{market.street}</p>
+      <p>{market.address}</p>
+      <p>{market.description}</p>
       <p>Bilder</p>
       <label htmlFor="comment">Kommentare</label>
       <Comment>
@@ -37,7 +37,7 @@ function MarktCard({ markt, onAddComment }) {
           />
         </CommentCloud>
       </Comment>
-      {markt.comments.map((comment, index) => (
+      {market.comments.map((comment, index) => (
         <>
           <Span key={index + comment}>{comment}</Span>
         </>
@@ -59,7 +59,7 @@ function MarktCard({ markt, onAddComment }) {
   );
 }
 
-export default MarktCard;
+export default MarketCard;
 
 const Section = styled.section`
   display: flex;

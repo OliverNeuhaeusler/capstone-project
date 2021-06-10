@@ -3,30 +3,30 @@ import { Switch, Route } from 'react-router-dom';
 import { saveToLocalStorage, loadFromLocalStorage } from './lib/localStorage';
 import styled from 'styled-components/macro';
 import BurgerMenu from './BurgerMenu.js';
-import MarktCard from './pages/MarktCard.js';
-import MarktForm from './pages/MarktForm.js';
+import MarketCard from './pages/MarktCard.js';
+import MarketForm from './pages/MarktForm.js';
 
 function App() {
-  const [markts, setMarkts] = useState(loadFromLocalStorage('Märkte') ?? []);
+  const [markets, setMarkets] = useState(loadFromLocalStorage('Markets') ?? []);
 
-  function addComment(comment, marktToUpdate) {
-    const updatedMarkets = markts.map((markt) => {
+  function addComment(comment, marketToUpdate) {
+    const updatedMarkets = markets.map((market) => {
       // @TODO: Replace .name with ._id later when markets are fetched from API / DB
-      if (markt.name === marktToUpdate.name) {
-        markt.comments.push(comment);
+      if (market.name === marketToUpdate.name) {
+        market.comments.push(comment);
       }
-      return markt;
+      return market;
     });
 
-    setMarkts(updatedMarkets);
+    setMarkets(updatedMarkets);
   }
 
   useEffect(() => {
-    saveToLocalStorage('Märkte', markts);
-  }, [markts]);
+    saveToLocalStorage('Markets', markets);
+  }, [markets]);
 
-  function addMarkt(markt) {
-    setMarkts([...markts, markt]);
+  function addMarket(market) {
+    setMarkets([...markets, market]);
   }
 
   return (
@@ -40,14 +40,14 @@ function App() {
           <Route exact path="/">
             Home
           </Route>
-          <Route path="/markt">
-            {markts.map((markt) => (
-              <MarktCard markt={markt} onAddComment={addComment} />
+          <Route path="/market">
+            {markets.map((market) => (
+              <MarketCard market={market} onAddComment={addComment} />
             ))}
           </Route>
           <Route path="/favorites">Favoriten</Route>
-          <Route path="/createmarkt">
-            <MarktForm onAddMarkt={addMarkt} />
+          <Route path="/createmarket">
+            <MarketForm onAddMarket={addMarket} />
           </Route>
           <Route path="/profil">Profil</Route>
           <Route path="/contact">Kontakt</Route>

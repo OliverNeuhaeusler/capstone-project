@@ -12,14 +12,14 @@ function BurgerMenu() {
       <NavLink exact to="/">
         Home <img src={Castle} alt="Home" />
       </NavLink>
-      <NavLink to="/markt">
+      <NavLink to="/market">
         Märkte
         <img src={Book} alt="Book" />
       </NavLink>
       <NavLink to="/favorites">
         Favoriten <img src={Fav} alt="Favorites" />
       </NavLink>
-      <NavLink to="/createmarkt">
+      <NavLink to="/createmarket">
         Markt erstellen <img src={Med} alt="create festivals" />
       </NavLink>
       <NavLink to="/profil">Profil</NavLink>
