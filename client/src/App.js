@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { saveToLocalStorage, loadFromLocalStorage } from './lib/localStorage';
 import styled from 'styled-components/macro';
+import Home from './pages/Home.js';
 import BurgerMenu from './BurgerMenu.js';
 import MarketCard from './pages/MarktCard.js';
 import MarketForm from './pages/MarktForm.js';
@@ -38,7 +39,7 @@ function App() {
         <BurgerMenu />
         <Switch>
           <Route exact path="/">
-            Home
+            <Home />
           </Route>
           <Route path="/market">
             {markets.map((market) => (
