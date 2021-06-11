@@ -17,7 +17,7 @@ export default function RatingStar() {
     return divide.toFixed(1);
   }
 
-  function handleRatingonClick(rate) {
+  function handleRatingOnClick(rate) {
     setRating1([...rating1, rate]);
   }
   console.log(1, rating1);
@@ -27,7 +27,7 @@ export default function RatingStar() {
         emptySymbol={<img src={EmptyAxt} alt="" style={{ width: '2rem' }} />}
         fullSymbol={<img src={FullAxt} alt="" style={{ width: '2rem' }} />}
         initialRating={rating1}
-        onClick={handleRatingonClick}
+        onClick={handleRatingOnClick}
       />
       <p>Rating: {rating1.length > 0 ? getDivide(rating1) : 0}/5</p>
     </>
