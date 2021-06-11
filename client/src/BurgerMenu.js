@@ -45,6 +45,7 @@ const Menu = styled.section`
   top: 0;
   transition: transform 1.3s ease-in-out;
   width: 15.625rem;
+  z-index: 200;
   &:hover {
     transform: translatex(15.625rem);
   }

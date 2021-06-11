@@ -20,7 +20,7 @@ export default function RatingStar() {
   function handleRatingOnClick(rate) {
     setRating1([...rating1, rate]);
   }
-  console.log(1, rating1);
+
   return (
     <>
       <Rating
