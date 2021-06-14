@@ -3,7 +3,13 @@ import { useState } from 'react';
 import RatingStar from '../components/Rating.js';
 import Manus from '../assets/manuscript.png';
 
-function MarketCard({ market, onAddComment, isFavorite, onAddToFav }) {
+function MarketCard({
+  market,
+  onAddComment,
+  isFavorite,
+  onAddToFav,
+  onAddRating,
+}) {
   const [comment, setComment] = useState('');
 
   function handleChange(event) {
@@ -49,15 +55,16 @@ function MarketCard({ market, onAddComment, isFavorite, onAddToFav }) {
         </>
       ))}
       <Rating>
-        <RatingStar />
+        <RatingStar onAddRating={onAddRating} market={market} />
       </Rating>
       <Button
-        type="button"
-        onClick={(e) => {
-          e.preventDefault();
-          window.location.href =
-            'https://www.google.de/maps/dir///@48.6205166,10.4120485,14z';
-        }}
+        href={
+          'https://maps.google.de/maps?q=' +
+          encodeURI(market.street) +
+          ',' +
+          encodeURI(market.address)
+        }
+        target="_blank"
       >
         Go to Maps
       </Button>
@@ -126,7 +133,7 @@ const Rating = styled.span`
   z-index: 0;
 `;
 
-const Button = styled.button`
+const Button = styled.a`
   padding: 0.6rem;
   border-radius: 0.4rem;
   border: none;

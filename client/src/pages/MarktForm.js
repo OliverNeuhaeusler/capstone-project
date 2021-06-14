@@ -8,6 +8,7 @@ export default function MarketForm({ onAddMarket }) {
     description: '',
     images: [],
     comments: [],
+    rating: [],
   };
 
   const [market, setMarket] = useState(initialMarketState);

@@ -3,7 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 import { saveToLocalStorage, loadFromLocalStorage } from './lib/localStorage';
 import styled from 'styled-components/macro';
 import Home from './pages/Home.js';
-import BurgerMenu from './BurgerMenu.js';
+import BurgerMenu from './components/BurgerMenu.js';
 import MarketCard from './pages/MarktCard.js';
 import MarketForm from './pages/MarktForm.js';
 
@@ -13,16 +13,32 @@ function App() {
     loadFromLocalStorage('bookmarkedMarkets') ?? []
   );
   const [filteredMarkets, setFilteredMarkets] = useState([]);
-  console.log(filteredMarkets);
   function addComment(comment, marketToUpdate) {
     const updatedMarkets = markets.map((market) => {
-      // @TODO: Replace .name with ._id later when markets are fetched from API / DB
       if (market._id === marketToUpdate._id) {
         market.comments.push(comment);
+        console.log(2, comment);
+        //fetch(PUT)
+        //await
+        //await
+        //return market
       }
       return market;
     });
+    setMarkets(updatedMarkets);
+  }
 
+  function addRating(rating, marketToUpdate) {
+    const updatedMarkets = markets.map((market) => {
+      if (market._id === marketToUpdate._id) {
+        market.rating.push(rating);
+        //fetch(PUT)
+        //await
+        //await
+        //return market
+      }
+      return market;
+    });
     setMarkets(updatedMarkets);
   }
 
@@ -84,17 +100,25 @@ function App() {
     );
   }
 
+  function searchMarketName(market, searchTerm) {
+    return market.name.toLowerCase().includes(searchTerm.toLowerCase());
+  }
+
+  function searchMarketAddress(market, searchTerm) {
+    return market.address.toLowerCase().includes(searchTerm.toLowerCase());
+  }
+
   function searchedMarkets(event) {
     const inputField = event.target;
     const searchTerm = inputField.value;
-    const filteredMarkets = markets.filter((market) => {
-      return market.name
-        .toLowerCase()
-        .includes(
-          searchTerm.toLowerCase() ||
-            market.address.toLowerCase().includes(searchTerm.toLowerCase())
-        );
-    });
+    const filteredMarkets =
+      searchTerm !== ''
+        ? markets.filter(
+            (market) =>
+              searchMarketName(market, searchTerm) ||
+              searchMarketAddress(market, searchTerm)
+          )
+        : markets;
     setFilteredMarkets(filteredMarkets);
   }
 
@@ -119,6 +143,7 @@ function App() {
               <MarketCard
                 market={filteredMarkets}
                 onAddComment={addComment}
+                onAddRating={addRating}
                 onAddToFav={toggleFav}
                 isFavorite={isFavorite}
               />
