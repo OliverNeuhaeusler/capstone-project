@@ -17,7 +17,7 @@ function App() {
   function addComment(comment, marketToUpdate) {
     const updatedMarkets = markets.map((market) => {
       // @TODO: Replace .name with ._id later when markets are fetched from API / DB
-      if (market.name === marketToUpdate.name) {
+      if (market._id === marketToUpdate._id) {
         market.comments.push(comment);
       }
       return market;
@@ -25,6 +25,13 @@ function App() {
 
     setMarkets(updatedMarkets);
   }
+
+  useEffect(() => {
+    fetch('http://localhost:4000/market')
+      .then((result) => result.json())
+      .then((marketFromApi) => setMarkets(marketFromApi))
+      .catch((error) => console.error(error));
+  }, []);
 
   useEffect(() => {
     setFilteredMarkets(markets);
@@ -39,7 +46,16 @@ function App() {
   }, [bookmarkedMarkets]);
 
   function addMarket(market) {
-    setMarkets([...markets, market]);
+    fetch('http://localhost:4000/market', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(market),
+    })
+      .then((result) => result.json())
+      .then((market) => setMarkets([...markets, market]))
+      .catch((error) => console.error(error));
   }
 
   function toggleFav(clickedMarket) {
@@ -50,21 +66,21 @@ function App() {
 
   function addToFav(marketToAdd) {
     const bookmarkedMarket = markets.find(
-      (market) => market.name === marketToAdd.name
+      (market) => market._id === marketToAdd._id
     );
     setBookmarkedMarkets([...bookmarkedMarkets, bookmarkedMarket]);
   }
 
   function removeFromFav(marketToRemove) {
     const remainingMarkets = bookmarkedMarkets.filter(
-      (market) => market.name !== marketToRemove.name
+      (market) => market._id !== marketToRemove._id
     );
     setBookmarkedMarkets(remainingMarkets);
   }
 
   function isFavorite(market) {
     return bookmarkedMarkets.some(
-      (bookmarkedMarket) => bookmarkedMarket.name === market.name
+      (bookmarkedMarket) => bookmarkedMarket._id === market._id
     );
   }
 
