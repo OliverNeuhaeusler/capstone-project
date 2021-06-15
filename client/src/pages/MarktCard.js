@@ -23,7 +23,11 @@ function MarketCard({ market, onAddComment, onAddRating }) {
       <p>{market.street}</p>
       <p>{market.address}</p>
       <p>{market.description}</p>
-      <p>Bilder</p>
+      <ImageWrapper>
+        {market.images.map((images, index) => (
+          <Img key={index + images} src={images} />
+        ))}
+      </ImageWrapper>
       <label htmlFor="comment">Kommentare</label>
       <Comment>
         <CommentCloud>
@@ -41,6 +45,7 @@ function MarketCard({ market, onAddComment, onAddRating }) {
           <Span key={index + comment}>{comment}</Span>
         </>
       ))}
+
       <Rating>
         <RatingStar onAddRating={onAddRating} market={market} />
       </Rating>
@@ -130,4 +135,19 @@ const Button = styled.a`
   font-size: 1rem;
   color: hsl(37, 19%, 95%);
   margin: 0.5rem;
+`;
+
+const ImageWrapper = styled.section`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 0.5rem;
+  justify-content: center;
+  height: auto;
+  align-items: center;
+`;
+
+const Img = styled.img`
+  width: 60px;
+  padding: 0.4rem;
 `;
