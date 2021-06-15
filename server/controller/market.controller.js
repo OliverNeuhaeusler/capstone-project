@@ -8,6 +8,7 @@ function postMarkets(req, res) {
     description: req.body.description,
     images: req.body.images,
     comments: req.body.comments,
+    rating: req.body.rating,
   });
   market
     .save()
@@ -19,4 +20,21 @@ function getMarkets(req, res) {
   Market.find().then((market) => res.json(market));
 }
 
-export { postMarkets, getMarkets };
+function updateMarkets(req, res) {
+  const { marketId } = req.params;
+  const updatedMarket = req.body;
+  Market.findByIdAndUpdate(
+    { _id: marketId },
+    updatedMarket,
+    { new: true },
+    (error, doc) => {
+      if (error) {
+        res.json({ message: 'could not update this market.' });
+        return;
+      }
+      res.json(doc);
+    }
+  );
+}
+
+export { postMarkets, getMarkets, updateMarkets };

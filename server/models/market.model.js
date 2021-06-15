@@ -7,6 +7,7 @@ const marketSchema = new mongoose.Schema({
   description: String,
   images: Array,
   comments: Array,
+  rating: Array,
 });
 
 const Market = mongoose.model('Markets', marketSchema);

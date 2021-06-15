@@ -35,7 +35,18 @@ function App() {
         //fetch(PUT)
         //await
         //await
-        //return market
+        fetch('http://localhost:4000/market/' + marketToUpdate._id, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(marketToUpdate),
+        })
+          .then((result) => result.json())
+          .then((updatedMarkets) => {
+            setMarkets(updatedMarkets);
+          })
+          .catch((error) => console.error(error));
       }
       return market;
     });
