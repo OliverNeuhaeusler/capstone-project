@@ -13,23 +13,36 @@ function App() {
     loadFromLocalStorage('bookmarkedMarkets') ?? []
   );
   const [filteredMarkets, setFilteredMarkets] = useState([]);
+
   function addComment(comment, marketToUpdate) {
-    const updatedMarkets = markets.map((market) => {
+    const upToDateMarkets = markets.filter(
+      (market) => market._id !== marketToUpdate._id
+    );
+    markets.map((market) => {
       if (market._id === marketToUpdate._id) {
         market.comments.push(comment);
-        console.log(2, comment);
-        //fetch(PUT)
-        //await
-        //await
-        //return market
+        fetch('http://localhost:4000/market/' + marketToUpdate._id, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(marketToUpdate),
+        })
+          .then((result) => result.json())
+          .then((updatedMarket) => {
+            setMarkets([...upToDateMarkets, updatedMarket]);
+          })
+          .catch((error) => console.error(error));
       }
       return market;
     });
-    setMarkets(updatedMarkets);
   }
 
   function addRating(rating, marketToUpdate) {
-    const updatedMarkets = markets.map((market) => {
+    const upToDateMarkets = markets.filter(
+      (market) => market._id !== marketToUpdate._id
+    );
+    markets.map((market) => {
       if (market._id === marketToUpdate._id) {
         market.rating.push(rating);
         fetch('http://localhost:4000/market/' + marketToUpdate._id, {
@@ -40,14 +53,13 @@ function App() {
           body: JSON.stringify(marketToUpdate),
         })
           .then((result) => result.json())
-          .then((updatedMarkets) => {
-            setMarkets(updatedMarkets);
+          .then((updatedMarket) => {
+            setMarkets([...upToDateMarkets, updatedMarket]);
           })
           .catch((error) => console.error(error));
       }
       return market;
     });
-    setMarkets(updatedMarkets);
   }
 
   useEffect(() => {
@@ -147,15 +159,16 @@ function App() {
               placeholder="Suche hier deinen Markt."
               onChange={searchedMarkets}
             />
-            {filteredMarkets.map((filteredMarkets) => (
-              <MarketCard
-                market={filteredMarkets}
-                onAddComment={addComment}
-                onAddRating={addRating}
-                onAddToFav={toggleFav}
-                isFavorite={isFavorite}
-              />
-            ))}
+            {filteredMarkets &&
+              filteredMarkets.map((filteredMarket) => (
+                <MarketCard
+                  market={filteredMarket}
+                  onAddComment={addComment}
+                  onAddRating={addRating}
+                  onAddToFav={toggleFav}
+                  isFavorite={isFavorite}
+                />
+              ))}
           </Route>
           <Route path="/favorites">
             {bookmarkedMarkets.map((market) => (
