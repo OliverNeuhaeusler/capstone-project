@@ -32,9 +32,6 @@ function App() {
     const updatedMarkets = markets.map((market) => {
       if (market._id === marketToUpdate._id) {
         market.rating.push(rating);
-        //fetch(PUT)
-        //await
-        //await
         fetch('http://localhost:4000/market/' + marketToUpdate._id, {
           method: 'PUT',
           headers: {
