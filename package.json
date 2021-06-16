@@ -22,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/OliverNeuhaeusler/mittelaltermarkt-app/issues"
   },
-  "homepage": "https://github.com/OliverNeuhaeusler/mittelaltermarkt-app#readme"
+  "homepage": "https://github.com/OliverNeuhaeusler/mittelaltermarkt-app#readme",
+  "devDependencies": {
+    "concurrently": "^6.2.0"
+  }
 }
