@@ -9,8 +9,9 @@ export default function Bookmarked({
 }) {
   return (
     <>
-      {bookmarkedMarkets.map((market) => (
+      {bookmarkedMarkets.map((market, index) => (
         <MarketCard
+          key={index}
           market={market}
           onAddComment={addComment}
           onAddRating={addRating}

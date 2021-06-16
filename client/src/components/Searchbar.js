@@ -17,8 +17,9 @@ export default function Searchbar({
         onChange={searchedMarkets}
       />
       {filteredMarkets &&
-        filteredMarkets.map((filteredMarket) => (
+        filteredMarkets.map((filteredMarket, index) => (
           <MarketCard
+            key={index}
             market={filteredMarket}
             onAddComment={addComment}
             onAddRating={addRating}
