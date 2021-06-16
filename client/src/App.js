@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 import { Switch, Route } from 'react-router-dom';
-import { saveToLocalStorage, loadFromLocalStorage } from './lib/localStorage';
 import styled from 'styled-components/macro';
-import Home from './pages/Home.js';
+import Bookmarked from './components/Bookmark.js';
 import BurgerMenu from './components/BurgerMenu.js';
-import MarketCard from './pages/MarktCard.js';
+import Home from './pages/Home.js';
 import MarketForm from './pages/MarktForm.js';
+import Searchbar from './components/Searchbar.js';
+import { saveToLocalStorage, loadFromLocalStorage } from './lib/localStorage';
 
 function App() {
   const [markets, setMarkets] = useState(loadFromLocalStorage('Markets') ?? []);
@@ -13,54 +14,6 @@ function App() {
     loadFromLocalStorage('bookmarkedMarkets') ?? []
   );
   const [filteredMarkets, setFilteredMarkets] = useState([]);
-
-  function addComment(comment, marketToUpdate) {
-    const upToDateMarkets = markets.filter(
-      (market) => market._id !== marketToUpdate._id
-    );
-    markets.map((market) => {
-      if (market._id === marketToUpdate._id) {
-        market.comments.push(comment);
-        fetch('http://localhost:4000/market/' + marketToUpdate._id, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(marketToUpdate),
-        })
-          .then((result) => result.json())
-          .then((updatedMarket) => {
-            setMarkets([...upToDateMarkets, updatedMarket]);
-          })
-          .catch((error) => console.error(error));
-      }
-      return market;
-    });
-  }
-
-  function addRating(rating, marketToUpdate) {
-    const upToDateMarkets = markets.filter(
-      (market) => market._id !== marketToUpdate._id
-    );
-    markets.map((market) => {
-      if (market._id === marketToUpdate._id) {
-        market.rating.push(rating);
-        fetch('http://localhost:4000/market/' + marketToUpdate._id, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(marketToUpdate),
-        })
-          .then((result) => result.json())
-          .then((updatedMarket) => {
-            setMarkets([...upToDateMarkets, updatedMarket]);
-          })
-          .catch((error) => console.error(error));
-      }
-      return market;
-    });
-  }
 
   useEffect(() => {
     fetch('http://localhost:4000/market')
@@ -70,11 +23,8 @@ function App() {
   }, []);
 
   useEffect(() => {
-    setFilteredMarkets(markets);
-  }, [markets]);
-
-  useEffect(() => {
     saveToLocalStorage('Markets', markets);
+    setFilteredMarkets(markets);
   }, [markets]);
 
   useEffect(() => {
@@ -142,6 +92,38 @@ function App() {
     setFilteredMarkets(filteredMarkets);
   }
 
+  function updateMarket(marketProperty, commentOrRating, marketToUpdate) {
+    const upToDateMarkets = markets.filter(
+      (market) => market._id !== marketToUpdate._id
+    );
+    markets.map((market) => {
+      if (market._id === marketToUpdate._id) {
+        market[marketProperty].push(commentOrRating);
+        fetch('http://localhost:4000/market/' + marketToUpdate._id, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(marketToUpdate),
+        })
+          .then((result) => result.json())
+          .then((updatedMarket) => {
+            setMarkets([...upToDateMarkets, updatedMarket]);
+          })
+          .catch((error) => console.error(error));
+      }
+      return market;
+    });
+  }
+
+  function addComment(comment, marketToUpdate) {
+    updateMarket('comments', comment, marketToUpdate);
+  }
+
+  function addRating(rating, marketToUpdate) {
+    updateMarket('rating', rating, marketToUpdate);
+  }
+
   return (
     <div>
       <Header>
@@ -154,33 +136,23 @@ function App() {
             <Home />
           </Route>
           <Route path="/market">
-            <SearchboxInput
-              type="text"
-              placeholder="Suche hier deinen Markt."
-              onChange={searchedMarkets}
+            <Searchbar
+              filteredMarkets={filteredMarkets}
+              searchedMarkets={searchedMarkets}
+              addComment={addComment}
+              addRating={addRating}
+              toggleFav={toggleFav}
+              isFavorite={isFavorite}
             />
-            {filteredMarkets &&
-              filteredMarkets.map((filteredMarket, index) => (
-                <MarketCard
-                  key={index}
-                  market={filteredMarket}
-                  onAddComment={addComment}
-                  onAddRating={addRating}
-                  onAddToFav={toggleFav}
-                  isFavorite={isFavorite}
-                />
-              ))}
           </Route>
           <Route path="/favorites">
-            {bookmarkedMarkets.map((market, index) => (
-              <MarketCard
-                key={index}
-                market={market}
-                onAddComment={addComment}
-                onAddToFav={toggleFav}
-                isFavorite={isFavorite}
-              />
-            ))}
+            <Bookmarked
+              bookmarkedMarkets={bookmarkedMarkets}
+              addComment={addComment}
+              addRating={addRating}
+              toggleFav={toggleFav}
+              isFavorite={isFavorite}
+            />
           </Route>
           <Route path="/createmarket">
             <MarketForm onAddMarket={addMarket} />
@@ -215,11 +187,4 @@ const Header = styled.header`
     margin: 0;
     padding: 0;
   }
-`;
-
-const SearchboxInput = styled.input`
-  display: block;
-  margin: 1rem auto 0.8rem;
-  width: 30%;
-  min-width: 300px;
 `;

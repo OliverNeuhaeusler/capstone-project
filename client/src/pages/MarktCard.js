@@ -1,8 +1,15 @@
-import styled from 'styled-components/macro';
 import { useState } from 'react';
+import styled from 'styled-components/macro';
 import RatingStar from '../components/Rating.js';
+import Manus from '../assets/manuscript.png';
 
-function MarketCard({ market, onAddComment, onAddRating }) {
+function MarketCard({
+  market,
+  onAddToFav,
+  isFavorite,
+  onAddComment,
+  onAddRating,
+}) {
   const [comment, setComment] = useState('');
 
   function handleChange(event) {
@@ -19,6 +26,12 @@ function MarketCard({ market, onAddComment, onAddRating }) {
 
   return (
     <Section>
+      <Bookmark
+        onClick={() => onAddToFav(market)}
+        src={Manus}
+        alt="bookmark this"
+        isFavorite={isFavorite(market)}
+      />
       <h3>{market.name}</h3>
       <p>{market.street}</p>
       <p>{market.address}</p>
@@ -149,4 +162,13 @@ const ImageWrapper = styled.section`
 const Img = styled.img`
   width: 60px;
   padding: 0.4rem;
+`;
+
+const Bookmark = styled.img`
+  width: 30px;
+  opacity: ${(props) => (props.isFavorite ? '1' : '0.5')};
+  position: absolute;
+  right: 3%;
+  top: -3%;
+  cursor: pointer;
 `;
