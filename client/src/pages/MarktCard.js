@@ -149,6 +149,15 @@ const Button = styled.a`
   margin: 0.5rem;
 `;
 
+const Bookmark = styled.img`
+  width: 30px;
+  opacity: ${(props) => (props.isFavorite ? '1' : '0.5')};
+  position: absolute;
+  right: 3%;
+  top: -3%;
+  cursor: pointer;
+`;
+
 const ImageWrapper = styled.section`
   display: flex;
   flex-direction: row;
@@ -162,13 +171,4 @@ const ImageWrapper = styled.section`
 const Img = styled.img`
   width: 60px;
   padding: 0.4rem;
-`;
-
-const Bookmark = styled.img`
-  width: 30px;
-  opacity: ${(props) => (props.isFavorite ? '1' : '0.5')};
-  position: absolute;
-  right: 3%;
-  top: -3%;
-  cursor: pointer;
 `;
