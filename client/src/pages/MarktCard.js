@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import styled from 'styled-components/macro';
+import ImagePreview from '../components/imagePreview.js';
 import RatingStar from '../components/Rating.js';
 import Manus from '../assets/manuscript.png';
 
@@ -36,11 +37,7 @@ function MarketCard({
       <p>{market.street}</p>
       <p>{market.address}</p>
       <p>{market.description}</p>
-      <ImageWrapper>
-        {market.images.map((images, index) => (
-          <Img key={index + images} src={images} />
-        ))}
-      </ImageWrapper>
+      <ImagePreview imageWidth={60} market={market} />
       <label htmlFor="comment">Kommentare</label>
       <Comment>
         <CommentCloud>
@@ -156,19 +153,4 @@ const Bookmark = styled.img`
   right: 3%;
   top: -3%;
   cursor: pointer;
-`;
-
-const ImageWrapper = styled.section`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  padding: 0.5rem;
-  justify-content: center;
-  height: auto;
-  align-items: center;
-`;
-
-const Img = styled.img`
-  width: 60px;
-  padding: 0.4rem;
 `;

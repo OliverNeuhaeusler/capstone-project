@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components/macro';
+import ImagePreview from '../components/imagePreview.js';
+
 export default function MarketForm({ onAddMarket }) {
   const initialMarketState = {
     name: '',
@@ -91,11 +93,7 @@ export default function MarketForm({ onAddMarket }) {
             setImageUploads(e.target.files);
           }}
         ></input>
-        <ImageWrapper>
-          {market.images.map((images, index) => (
-            <Img key={index + images} src={images} />
-          ))}
-        </ImageWrapper>
+        <ImagePreview imageWidth={30} market={market} />
         <Button isPrimary onClick={handleFormSubmit}>
           Markt erstellen.
         </Button>
@@ -145,19 +143,4 @@ const Button = styled.button`
   font-size: 1.2rem;
   color: ${(props) =>
     props.isPrimary ? 'hsl(37, 19%, 90%)' : 'hsl(37, 19%, 30%)'}; ;
-`;
-
-const ImageWrapper = styled.section`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  padding: 0.5rem;
-  justify-content: center;
-  height: auto;
-  align-items: center;
-`;
-
-const Img = styled.img`
-  width: 30px;
-  padding: 0.4rem;
 `;
