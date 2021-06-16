@@ -1,8 +1,15 @@
-import styled from 'styled-components/macro';
 import { useState } from 'react';
+import styled from 'styled-components/macro';
 import RatingStar from '../components/Rating.js';
+import Manus from '../assets/manuscript.png';
 
-function MarketCard({ market, onAddComment }) {
+function MarketCard({
+  market,
+  onAddToFav,
+  isFavorite,
+  onAddComment,
+  onAddRating,
+}) {
   const [comment, setComment] = useState('');
 
   function handleChange(event) {
@@ -19,6 +26,12 @@ function MarketCard({ market, onAddComment }) {
 
   return (
     <Section>
+      <Bookmark
+        onClick={() => onAddToFav(market)}
+        src={Manus}
+        alt="bookmark this"
+        isFavorite={isFavorite(market)}
+      />
       <h3>{market.name}</h3>
       <p>{market.street}</p>
       <p>{market.address}</p>
@@ -42,15 +55,16 @@ function MarketCard({ market, onAddComment }) {
         </>
       ))}
       <Rating>
-        <RatingStar />
+        <RatingStar onAddRating={onAddRating} market={market} />
       </Rating>
       <Button
-        type="button"
-        onClick={(e) => {
-          e.preventDefault();
-          window.location.href =
-            'https://www.google.de/maps/dir///@48.6205166,10.4120485,14z';
-        }}
+        href={
+          'https://maps.google.de/maps?q=' +
+          encodeURI(market.street) +
+          ',' +
+          encodeURI(market.address)
+        }
+        target="_blank"
       >
         Go to Maps
       </Button>
@@ -119,7 +133,7 @@ const Rating = styled.span`
   z-index: 0;
 `;
 
-const Button = styled.button`
+const Button = styled.a`
   padding: 0.6rem;
   border-radius: 0.4rem;
   border: none;
@@ -129,4 +143,13 @@ const Button = styled.button`
   font-size: 1rem;
   color: hsl(37, 19%, 95%);
   margin: 0.5rem;
+`;
+
+const Bookmark = styled.img`
+  width: 30px;
+  opacity: ${(props) => (props.isFavorite ? '1' : '0.5')};
+  position: absolute;
+  right: 3%;
+  top: -3%;
+  cursor: pointer;
 `;

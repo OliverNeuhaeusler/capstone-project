@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components/macro';
 import { NavLink } from 'react-router-dom';
-import Book from './assets/book.png';
-import Castle from './assets/castle.png';
-import Fav from './assets/manuscript.png';
-import Med from './assets/medieval.png';
+import Book from '../assets/book.png';
+import Castle from '../assets/castle.png';
+import Fav from '../assets/manuscript.png';
+import Med from '../assets/medieval.png';
 
 function BurgerMenu() {
   return (
@@ -45,6 +45,7 @@ const Menu = styled.section`
   top: 0;
   transition: transform 1.3s ease-in-out;
   width: 15.625rem;
+  z-index: 200;
   &:hover {
     transform: translatex(15.625rem);
   }
