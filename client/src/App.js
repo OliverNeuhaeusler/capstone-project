@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import styled from 'styled-components/macro';
-import Bookmarked from './components/Bookmark.js';
 import BurgerMenu from './components/BurgerMenu.js';
 import Home from './pages/Home.js';
 import MarketCard from './pages/MarktCard.js';
@@ -169,7 +168,15 @@ function App() {
               ))}
           </Route>
           <Route path="/favorites">
-            <Bookmarked bookmarkedMarkets={bookmarkedMarkets} />
+            {bookmarkedMarkets.map((market) => (
+              <MarketCard
+                market={market}
+                onAddComment={addComment}
+                onAddRating={addRating}
+                onAddToFav={toggleFav}
+                isFavorite={isFavorite}
+              />
+            ))}
           </Route>
           <Route path="/createmarket">
             <MarketForm onAddMarket={addMarket} />
