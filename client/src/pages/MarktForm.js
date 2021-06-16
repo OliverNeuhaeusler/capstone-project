@@ -29,7 +29,7 @@ export default function MarketForm({ onAddMarket }) {
   }
 
   function uploadImage() {
-    const fileListAsArray = Array.from(imageUploads);
+    const fileListAsArray = Array.from(market.images);
     const imagesPromises = fileListAsArray.map((imageUpload) => {
       const formData = new FormData();
 
