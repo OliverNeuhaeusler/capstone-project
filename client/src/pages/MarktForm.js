@@ -1,5 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components/macro';
+import ImagePreview from '../components/imagePreview.js';
+
 export default function MarketForm({ onAddMarket }) {
   const initialMarketState = {
     name: '',
@@ -12,6 +14,11 @@ export default function MarketForm({ onAddMarket }) {
   };
 
   const [market, setMarket] = useState(initialMarketState);
+  const [imageUploads, setImageUploads] = useState([]);
+
+  useEffect(() => {
+    uploadImage(imageUploads);
+  }, [imageUploads]);
 
   function updateMarket(event) {
     const fieldName = event.target.name;
@@ -24,6 +31,27 @@ export default function MarketForm({ onAddMarket }) {
     event.preventDefault();
     onAddMarket(market);
     setMarket(initialMarketState);
+  }
+
+  function uploadImage(imageUploads) {
+    const fileListAsArray = Array.from(imageUploads);
+    const imagesPromises = fileListAsArray.map((imageUpload) => {
+      const formData = new FormData();
+
+      formData.append('file', imageUpload);
+      formData.append('upload_preset', 'idavh6zu');
+
+      return fetch('https://api.cloudinary.com/v1_1/dtxy1yc95/image/upload', {
+        method: 'PUT',
+        body: formData,
+      }).then((response) => response.json());
+    });
+    Promise.all(imagesPromises).then((imagesResults) => {
+      const imageURLs = imagesResults.map(
+        (imageResult) => imageResult.secure_url
+      );
+      setMarket({ ...market, images: imageURLs });
+    });
   }
 
   return (
@@ -58,6 +86,14 @@ export default function MarketForm({ onAddMarket }) {
           onChange={updateMarket}
           value={market.description}
         />
+        <input
+          type="file"
+          multiple
+          onChange={(e) => {
+            setImageUploads(e.target.files);
+          }}
+        ></input>
+        <ImagePreview imageWidth={30} market={market} />
         <Button isPrimary onClick={handleFormSubmit}>
           Markt erstellen.
         </Button>
