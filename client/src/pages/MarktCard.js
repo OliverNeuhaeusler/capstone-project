@@ -27,7 +27,7 @@ function MarketCard({
   return (
     <Section>
       <Bookmark
-        onClick={(market) => onAddToFav(market)}
+        onClick={() => onAddToFav(market)}
         src={Manus}
         alt="bookmark this"
         isFavorite={isFavorite(market)}
@@ -149,7 +149,7 @@ const Bookmark = styled.img`
   width: 30px;
   opacity: ${(props) => (props.isFavorite ? '1' : '0.5')};
   position: absolute;
-  right: -3%;
-  top: -8%;
+  right: 3%;
+  top: -3%;
   cursor: pointer;
 `;

@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import styled from 'styled-components/macro';
+import Bookmarked from './components/Bookmark.js';
 import BurgerMenu from './components/BurgerMenu.js';
 import Home from './pages/Home.js';
-import MarketCard from './pages/MarktCard.js';
 import MarketForm from './pages/MarktForm.js';
+import Searchbar from './components/Searchbar.js';
 import { saveToLocalStorage, loadFromLocalStorage } from './lib/localStorage';
 
 function App() {
@@ -151,32 +152,23 @@ function App() {
             <Home />
           </Route>
           <Route path="/market">
-            <SearchboxInput
-              type="text"
-              placeholder="Suche hier deinen Markt."
-              onChange={searchedMarkets}
+            <Searchbar
+              filteredMarkets={filteredMarkets}
+              searchedMarkets={searchedMarkets}
+              addComment={addComment}
+              addRating={addRating}
+              toggleFav={toggleFav}
+              isFavorite={isFavorite}
             />
-            {filteredMarkets &&
-              filteredMarkets.map((filteredMarket) => (
-                <MarketCard
-                  market={filteredMarket}
-                  onAddComment={addComment}
-                  onAddRating={addRating}
-                  onAddToFav={toggleFav}
-                  isFavorite={isFavorite}
-                />
-              ))}
           </Route>
           <Route path="/favorites">
-            {bookmarkedMarkets.map((market) => (
-              <MarketCard
-                market={market}
-                onAddComment={addComment}
-                onAddRating={addRating}
-                onAddToFav={toggleFav}
-                isFavorite={isFavorite}
-              />
-            ))}
+            <Bookmarked
+              bookmarkedMarkets={bookmarkedMarkets}
+              addComment={addComment}
+              addRating={addRating}
+              toggleFav={toggleFav}
+              isFavorite={isFavorite}
+            />
           </Route>
           <Route path="/createmarket">
             <MarketForm onAddMarket={addMarket} />
@@ -211,11 +203,4 @@ const Header = styled.header`
     margin: 0;
     padding: 0;
   }
-`;
-
-const SearchboxInput = styled.input`
-  display: block;
-  margin: 1rem auto 0.8rem;
-  width: 30%;
-  min-width: 300px;
 `;
