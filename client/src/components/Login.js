@@ -43,7 +43,7 @@ export default function Login() {
 }
 
 const LoginForm = styled.section`
-  display: fles;
+  display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
