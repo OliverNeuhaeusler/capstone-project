@@ -160,8 +160,9 @@ function App() {
               onChange={searchedMarkets}
             />
             {filteredMarkets &&
-              filteredMarkets.map((filteredMarket) => (
+              filteredMarkets.map((filteredMarket, index) => (
                 <MarketCard
+                  key={index}
                   market={filteredMarket}
                   onAddComment={addComment}
                   onAddRating={addRating}
@@ -171,8 +172,9 @@ function App() {
               ))}
           </Route>
           <Route path="/favorites">
-            {bookmarkedMarkets.map((market) => (
+            {bookmarkedMarkets.map((market, index) => (
               <MarketCard
+                key={index}
                 market={market}
                 onAddComment={addComment}
                 onAddToFav={toggleFav}

@@ -45,7 +45,6 @@ function MarketCard({ market, onAddComment, onAddRating }) {
           <Span key={index + comment}>{comment}</Span>
         </>
       ))}
-
       <Rating>
         <RatingStar onAddRating={onAddRating} market={market} />
       </Rating>

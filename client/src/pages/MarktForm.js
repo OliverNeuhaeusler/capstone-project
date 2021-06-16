@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components/macro';
 export default function MarketForm({ onAddMarket }) {
   const initialMarketState = {
@@ -14,6 +14,10 @@ export default function MarketForm({ onAddMarket }) {
   const [market, setMarket] = useState(initialMarketState);
   const [imageUploads, setImageUploads] = useState([]);
 
+  useEffect(() => {
+    uploadImage(imageUploads);
+  }, [imageUploads]);
+
   function updateMarket(event) {
     const fieldName = event.target.name;
     let fieldValue = event.target.value;
@@ -24,12 +28,11 @@ export default function MarketForm({ onAddMarket }) {
   function handleFormSubmit(event) {
     event.preventDefault();
     onAddMarket(market);
-    uploadImage(imageUploads);
     setMarket(initialMarketState);
   }
 
-  function uploadImage() {
-    const fileListAsArray = Array.from(market.images);
+  function uploadImage(imageUploads) {
+    const fileListAsArray = Array.from(imageUploads);
     const imagesPromises = fileListAsArray.map((imageUpload) => {
       const formData = new FormData();
 
@@ -88,6 +91,11 @@ export default function MarketForm({ onAddMarket }) {
             setImageUploads(e.target.files);
           }}
         ></input>
+        <ImageWrapper>
+          {market.images.map((images, index) => (
+            <Img key={index + images} src={images} />
+          ))}
+        </ImageWrapper>
         <Button isPrimary onClick={handleFormSubmit}>
           Markt erstellen.
         </Button>
@@ -137,4 +145,19 @@ const Button = styled.button`
   font-size: 1.2rem;
   color: ${(props) =>
     props.isPrimary ? 'hsl(37, 19%, 90%)' : 'hsl(37, 19%, 30%)'}; ;
+`;
+
+const ImageWrapper = styled.section`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 0.5rem;
+  justify-content: center;
+  height: auto;
+  align-items: center;
+`;
+
+const Img = styled.img`
+  width: 30px;
+  padding: 0.4rem;
 `;
