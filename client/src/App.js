@@ -92,13 +92,13 @@ function App() {
     setFilteredMarkets(filteredMarkets);
   }
 
-  function addComment(comment, marketToUpdate) {
+  function updateMarket(marketProperty, commentOrRating, marketToUpdate) {
     const upToDateMarkets = markets.filter(
       (market) => market._id !== marketToUpdate._id
     );
     markets.map((market) => {
       if (market._id === marketToUpdate._id) {
-        market.comments.push(comment);
+        market[marketProperty].push(commentOrRating);
         fetch('http://localhost:4000/market/' + marketToUpdate._id, {
           method: 'PUT',
           headers: {
@@ -116,28 +116,12 @@ function App() {
     });
   }
 
+  function addComment(comment, marketToUpdate) {
+    updateMarket('comments', comment, marketToUpdate);
+  }
+
   function addRating(rating, marketToUpdate) {
-    const upToDateMarkets = markets.filter(
-      (market) => market._id !== marketToUpdate._id
-    );
-    markets.map((market) => {
-      if (market._id === marketToUpdate._id) {
-        market.rating.push(rating);
-        fetch('http://localhost:4000/market/' + marketToUpdate._id, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(marketToUpdate),
-        })
-          .then((result) => result.json())
-          .then((updatedMarket) => {
-            setMarkets([...upToDateMarkets, updatedMarket]);
-          })
-          .catch((error) => console.error(error));
-      }
-      return market;
-    });
+    updateMarket('rating', rating, marketToUpdate);
   }
 
   return (
