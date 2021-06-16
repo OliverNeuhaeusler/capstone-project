@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 import { Switch, Route } from 'react-router-dom';
-import { saveToLocalStorage, loadFromLocalStorage } from './lib/localStorage';
 import styled from 'styled-components/macro';
-import Home from './pages/Home.js';
+import Bookmarked from './components/Bookmark.js';
 import BurgerMenu from './components/BurgerMenu.js';
+import Home from './pages/Home.js';
 import MarketCard from './pages/MarktCard.js';
 import MarketForm from './pages/MarktForm.js';
+import { saveToLocalStorage, loadFromLocalStorage } from './lib/localStorage';
 
 function App() {
   const [markets, setMarkets] = useState(loadFromLocalStorage('Markets') ?? []);
@@ -13,54 +14,6 @@ function App() {
     loadFromLocalStorage('bookmarkedMarkets') ?? []
   );
   const [filteredMarkets, setFilteredMarkets] = useState([]);
-
-  function addComment(comment, marketToUpdate) {
-    const upToDateMarkets = markets.filter(
-      (market) => market._id !== marketToUpdate._id
-    );
-    markets.map((market) => {
-      if (market._id === marketToUpdate._id) {
-        market.comments.push(comment);
-        fetch('http://localhost:4000/market/' + marketToUpdate._id, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(marketToUpdate),
-        })
-          .then((result) => result.json())
-          .then((updatedMarket) => {
-            setMarkets([...upToDateMarkets, updatedMarket]);
-          })
-          .catch((error) => console.error(error));
-      }
-      return market;
-    });
-  }
-
-  function addRating(rating, marketToUpdate) {
-    const upToDateMarkets = markets.filter(
-      (market) => market._id !== marketToUpdate._id
-    );
-    markets.map((market) => {
-      if (market._id === marketToUpdate._id) {
-        market.rating.push(rating);
-        fetch('http://localhost:4000/market/' + marketToUpdate._id, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(marketToUpdate),
-        })
-          .then((result) => result.json())
-          .then((updatedMarket) => {
-            setMarkets([...upToDateMarkets, updatedMarket]);
-          })
-          .catch((error) => console.error(error));
-      }
-      return market;
-    });
-  }
 
   useEffect(() => {
     fetch('http://localhost:4000/market')
@@ -70,11 +23,8 @@ function App() {
   }, []);
 
   useEffect(() => {
-    setFilteredMarkets(markets);
-  }, [markets]);
-
-  useEffect(() => {
     saveToLocalStorage('Markets', markets);
+    setFilteredMarkets(markets);
   }, [markets]);
 
   useEffect(() => {
@@ -142,6 +92,54 @@ function App() {
     setFilteredMarkets(filteredMarkets);
   }
 
+  function addComment(comment, marketToUpdate) {
+    const upToDateMarkets = markets.filter(
+      (market) => market._id !== marketToUpdate._id
+    );
+    markets.map((market) => {
+      if (market._id === marketToUpdate._id) {
+        market.comments.push(comment);
+        fetch('http://localhost:4000/market/' + marketToUpdate._id, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(marketToUpdate),
+        })
+          .then((result) => result.json())
+          .then((updatedMarket) => {
+            setMarkets([...upToDateMarkets, updatedMarket]);
+          })
+          .catch((error) => console.error(error));
+      }
+      return market;
+    });
+  }
+
+  function addRating(rating, marketToUpdate) {
+    const upToDateMarkets = markets.filter(
+      (market) => market._id !== marketToUpdate._id
+    );
+    markets.map((market) => {
+      if (market._id === marketToUpdate._id) {
+        market.rating.push(rating);
+        fetch('http://localhost:4000/market/' + marketToUpdate._id, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(marketToUpdate),
+        })
+          .then((result) => result.json())
+          .then((updatedMarket) => {
+            setMarkets([...upToDateMarkets, updatedMarket]);
+          })
+          .catch((error) => console.error(error));
+      }
+      return market;
+    });
+  }
+
   return (
     <div>
       <Header>
@@ -171,14 +169,7 @@ function App() {
               ))}
           </Route>
           <Route path="/favorites">
-            {bookmarkedMarkets.map((market) => (
-              <MarketCard
-                market={market}
-                onAddComment={addComment}
-                onAddToFav={toggleFav}
-                isFavorite={isFavorite}
-              />
-            ))}
+            <Bookmarked bookmarkedMarkets={bookmarkedMarkets} />
           </Route>
           <Route path="/createmarket">
             <MarketForm onAddMarket={addMarket} />

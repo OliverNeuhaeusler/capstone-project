@@ -34,7 +34,7 @@ export default function Login() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </article>
-        <button block size="lg" type="submit" disabled={!validateForm()}>
+        <button block type="submit" disabled={!validateForm()}>
           Login
         </button>
       </form>
