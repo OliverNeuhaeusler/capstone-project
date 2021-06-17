@@ -87,24 +87,6 @@ const Button = styled.a`
   margin: 0.5rem;
 `;
 
-<<<<<<< HEAD
-const ImageWrapper = styled.section`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  padding: 0.5rem;
-  justify-content: center;
-  height: auto;
-  align-items: center;
-`;
-
-const Img = styled.img`
-  width: 60px;
-  padding: 0.4rem;
-`;
-
-=======
->>>>>>> main
 const Bookmark = styled.img`
   width: 30px;
   opacity: ${(props) => (props.isFavorite ? '1' : '0.5')};

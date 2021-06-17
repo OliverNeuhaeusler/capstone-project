@@ -22,7 +22,7 @@ function BurgerMenu() {
       <NavLink to="/createmarket">
         Markt erstellen <img src={Med} alt="create festivals" />
       </NavLink>
-      <NavLink to="/profil">Profil</NavLink>
+      <NavLink to="/profile">Profil</NavLink>
       <NavLink to="/contact">Kontakt</NavLink>
       <NavLink to="/impressum">Impressum</NavLink>
     </Menu>

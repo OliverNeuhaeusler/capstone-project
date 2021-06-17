@@ -2,6 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import marketRoutes from './routes/market.routes.js';
+import profilRoutes from './routes/profil.routes.js';
 import dirname from './lib/pathHelpers.js';
 import path from 'path';
 const __dirname = dirname(import.meta.url);
@@ -20,6 +21,7 @@ server.get('/health', (req, res) =>
   res.json({ status: 'Server is running. ' })
 );
 server.use(marketRoutes);
+server.use(profilRoutes);
 
 server.use(express.static(path.join(__dirname, '../client/build')));
 server.get('/*', (req, res) => {
