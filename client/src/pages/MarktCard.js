@@ -1,11 +1,6 @@
-<<<<<<< HEAD
-import { useState } from 'react';
-import styled from 'styled-components/macro';
-=======
 import styled from 'styled-components/macro';
 import Comments from '../components/Comments.js';
 import ImagePreview from '../components/imagePreview.js';
->>>>>>> main
 import RatingStar from '../components/Rating.js';
 import Manus from '../assets/manuscript.png';
 
@@ -16,23 +11,6 @@ function MarketCard({
   onAddComment,
   onAddRating,
 }) {
-<<<<<<< HEAD
-  const [comment, setComment] = useState('');
-
-  function handleChange(event) {
-    setComment(event.target.value);
-  }
-
-  function handleKeyDown(event) {
-    if (event.key === 'Enter') {
-      event.preventDefault();
-      onAddComment(comment, market);
-      setComment('');
-    }
-  }
-
-=======
->>>>>>> main
   return (
     <Section>
       <Bookmark
@@ -45,15 +23,7 @@ function MarketCard({
       <p>{market.street}</p>
       <p>{market.address}</p>
       <p>{market.description}</p>
-<<<<<<< HEAD
-      <ImageWrapper>
-        {market.images.map((images, index) => (
-          <Img key={index + images} src={images} />
-        ))}
-      </ImageWrapper>
-=======
       <ImagePreview imageWidth={60} market={market} />
->>>>>>> main
       <label htmlFor="comment">Kommentare</label>
       <Comments market={market} onAddComment={onAddComment} />
       <Rating>
