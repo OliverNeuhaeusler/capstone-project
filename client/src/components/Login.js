@@ -50,7 +50,7 @@ const LoginForm = styled.form`
   flex-wrap: wrap;
   position: fixed;
   left: 72%;
-  top: 3.5%;
+  top: 2.5%;
 
   article {
     padding: 1rem;
