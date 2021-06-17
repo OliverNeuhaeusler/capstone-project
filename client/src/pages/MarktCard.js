@@ -1,5 +1,11 @@
+<<<<<<< HEAD
 import { useState } from 'react';
 import styled from 'styled-components/macro';
+=======
+import styled from 'styled-components/macro';
+import Comments from '../components/Comments.js';
+import ImagePreview from '../components/imagePreview.js';
+>>>>>>> main
 import RatingStar from '../components/Rating.js';
 import Manus from '../assets/manuscript.png';
 
@@ -10,6 +16,7 @@ function MarketCard({
   onAddComment,
   onAddRating,
 }) {
+<<<<<<< HEAD
   const [comment, setComment] = useState('');
 
   function handleChange(event) {
@@ -24,6 +31,8 @@ function MarketCard({
     }
   }
 
+=======
+>>>>>>> main
   return (
     <Section>
       <Bookmark
@@ -36,28 +45,17 @@ function MarketCard({
       <p>{market.street}</p>
       <p>{market.address}</p>
       <p>{market.description}</p>
+<<<<<<< HEAD
       <ImageWrapper>
         {market.images.map((images, index) => (
           <Img key={index + images} src={images} />
         ))}
       </ImageWrapper>
+=======
+      <ImagePreview imageWidth={60} market={market} />
+>>>>>>> main
       <label htmlFor="comment">Kommentare</label>
-      <Comment>
-        <CommentCloud>
-          <input
-            type="text"
-            name="comment"
-            value={comment}
-            onChange={handleChange}
-            onKeyDown={handleKeyDown}
-          />
-        </CommentCloud>
-      </Comment>
-      {market.comments.map((comment, index) => (
-        <>
-          <Span key={index + comment}>{comment}</Span>
-        </>
-      ))}
+      <Comments market={market} onAddComment={onAddComment} />
       <Rating>
         <RatingStar onAddRating={onAddRating} market={market} />
       </Rating>
@@ -102,36 +100,6 @@ const Section = styled.section`
   }
 `;
 
-const Comment = styled.section`
-  display: inline-flex;
-  flex-basis: content;
-  gap: 0.2rem;
-  font-family: sans-serif;
-  border: 2px groove goldenrod;
-  border-radius: 0.6rem;
-  padding: 0.5rem;
-
-  input {
-    display: inline-flex;
-    padding: 0.5rem;
-    margin: 0.4rem;
-  }
-`;
-const Span = styled.span`
-  margin: 0.5rem;
-  background: hsl(37, 48%, 38%);
-  border: groove 0.1rem goldenrod;
-  border-radius: 0.8rem;
-  color: hsl(37, 19%, 90%);
-  padding: 0.5rem;
-  border-radius: 0.3rem;
-`;
-
-const CommentCloud = styled.article`
-  display: inline-flex;
-  flex-wrap: wrap;
-`;
-
 const Rating = styled.span`
   margin: 0.6rem;
   z-index: 0;
@@ -149,6 +117,7 @@ const Button = styled.a`
   margin: 0.5rem;
 `;
 
+<<<<<<< HEAD
 const ImageWrapper = styled.section`
   display: flex;
   flex-direction: row;
@@ -164,6 +133,8 @@ const Img = styled.img`
   padding: 0.4rem;
 `;
 
+=======
+>>>>>>> main
 const Bookmark = styled.img`
   width: 30px;
   opacity: ${(props) => (props.isFavorite ? '1' : '0.5')};
