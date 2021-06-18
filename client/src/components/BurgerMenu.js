@@ -1,10 +1,11 @@
 import React from 'react';
 import styled from 'styled-components/macro';
 import { NavLink } from 'react-router-dom';
-import Book from '../assets/book.png';
-import Castle from '../assets/castle.png';
-import Fav from '../assets/manuscript.png';
-import Med from '../assets/medieval.png';
+import Book from '../assets/catapult.png';
+import Castle from '../assets/Home.png';
+import Fav from '../assets/manuscriptgrey.png';
+import Med from '../assets/swords.png';
+import Profile from '../assets/king.png';
 
 function BurgerMenu() {
   return (
@@ -22,7 +23,9 @@ function BurgerMenu() {
       <NavLink to="/createmarket">
         Markt erstellen <img src={Med} alt="create festivals" />
       </NavLink>
-      <NavLink to="/profile">Profil</NavLink>
+      <NavLink to="/profile">
+        Profil <img src={Profile} alt="create profile" />
+      </NavLink>
       <NavLink to="/contact">Kontakt</NavLink>
       <NavLink to="/impressum">Impressum</NavLink>
     </Menu>
@@ -59,8 +62,8 @@ const Menu = styled.section`
     text-decoration: none;
   }
   img {
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 2rem;
+    height: 2rem;
   }
 
   .active {
