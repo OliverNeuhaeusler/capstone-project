@@ -2,7 +2,7 @@ import { useState } from 'react';
 import styled from 'styled-components/macro';
 import { validateProfile } from '../lib/validation.js';
 
-export default function Profile({ onAddProfile }) {
+export default function CreateProfile({ onAddProfile }) {
   const initialProfileState = {
     firstName: '',
     secondName: '',

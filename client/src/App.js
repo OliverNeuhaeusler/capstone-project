@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useHistory, useEffect, useState } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import Bookmarked from './components/Bookmark.js';
 import BurgerMenu from './components/BurgerMenu.js';
 import Headers from './components/Header.js';
 import Home from './pages/Home.js';
 import MarketForm from './pages/MarktForm.js';
-import Profil from './pages/CreateProfile.js';
+import CreateProfile from './pages/CreateProfile.js';
 import Searchbar from './components/Searchbar.js';
 import { saveToLocalStorage, loadFromLocalStorage } from './lib/localStorage';
 
@@ -17,10 +17,12 @@ function App() {
   );
   const [filteredMarkets, setFilteredMarkets] = useState([]);
 
+  console.log(1, profiles);
+
   useEffect(() => {
     fetch('http://localhost:4000/profile')
       .then((result) => result.json())
-      .then((profileFromApi) => setMarkets(profileFromApi))
+      .then((profileFromApi) => setProfiles(profileFromApi))
       .catch((error) => console.error(error));
   }, []);
 
@@ -50,6 +52,7 @@ function App() {
     })
       .then((result) => result.json())
       .then((profile) => setProfiles([...profiles, profile]))
+      .then()
       .catch((error) => console.error(error));
   }
 
@@ -177,9 +180,10 @@ function App() {
           <Route path="/createmarket">
             <MarketForm onAddMarket={addMarket} />
           </Route>
-          <Route path="/profile">
-            <Profil onAddProfile={addProfile} />
+          <Route path="/createProfile">
+            <CreateProfile onAddProfile={addProfile} />
           </Route>
+          <Route path="/profile"></Route>
           <Route path="/contact">Kontakt</Route>
           <Route path="/impressum">Impressum</Route>
         </Switch>

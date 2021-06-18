@@ -5,10 +5,6 @@ export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  function validateForm() {
-    return email.length > 0 && password.length > 0;
-  }
-
   function handleSubmit(event) {
     event.preventDefault();
   }
@@ -35,7 +31,7 @@ export default function Login() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </article>
-        <button type="submit" disabled={!validateForm()}>
+        <button type="submit" onClick={handleSubmit}>
           Login
         </button>
       </LoginForm>
