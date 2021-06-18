@@ -20,7 +20,7 @@ function App() {
   console.log(1, profiles);
 
   useEffect(() => {
-    fetch('http://localhost:4000/profile')
+    fetch('http://localhost:4000/profils')
       .then((result) => result.json())
       .then((profileFromApi) => setProfiles(profileFromApi))
       .catch((error) => console.error(error));
