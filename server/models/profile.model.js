@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const profilSchema = new mongoose.Schema({
+const profileSchema = new mongoose.Schema({
   firstName: String,
   secondName: String,
   street: String,
@@ -10,6 +10,6 @@ const profilSchema = new mongoose.Schema({
   image: Array,
 });
 
-const Profil = mongoose.model('Profil', profilSchema);
+const Profile = mongoose.model('Profile', profileSchema);
 
-export default Profil;
+export default Profile;
