@@ -151,7 +151,7 @@ function App() {
 
   return (
     <div>
-      <Headers />
+      <Headers profiles={profiles} />
       <main>
         <BurgerMenu />
         <Switch>

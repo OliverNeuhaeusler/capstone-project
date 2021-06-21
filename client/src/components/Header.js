@@ -1,10 +1,10 @@
 import styled from 'styled-components/macro';
 import Login from './Login.js';
-export default function Headers() {
+export default function Headers({ profiles }) {
   return (
     <Header>
       <h1>Mittelalter-Märkte</h1>
-      <Login />
+      <Login profiles={profiles} />
     </Header>
   );
 }

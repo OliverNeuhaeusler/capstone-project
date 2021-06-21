@@ -1,9 +1,20 @@
-import React, { useState } from 'react';
+
 import styled from 'styled-components/macro';
 
-export default function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+export default function Login({ profiles }) {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
+  function compareEmailPassword() {
+    profiles.filter((profile) => {
+      if (profile.email === email && profile.password === password){
+        
+      }
+      else 
+    } 
+    )
+    
+  }
 
   function handleSubmit(event) {
     event.preventDefault();
