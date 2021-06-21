@@ -1,19 +1,28 @@
 import { useEffect, useState } from 'react';
 import { Switch, Route } from 'react-router-dom';
-import styled from 'styled-components/macro';
 import Bookmarked from './components/Bookmark.js';
 import BurgerMenu from './components/BurgerMenu.js';
+import Headers from './components/Header.js';
 import Home from './pages/Home.js';
 import MarketForm from './pages/MarktForm.js';
+import Profil from './pages/CreateProfile.js';
 import Searchbar from './components/Searchbar.js';
 import { saveToLocalStorage, loadFromLocalStorage } from './lib/localStorage';
 
 function App() {
   const [markets, setMarkets] = useState(loadFromLocalStorage('Markets') ?? []);
+  const [profiles, setProfiles] = useState([]);
   const [bookmarkedMarkets, setBookmarkedMarkets] = useState(
     loadFromLocalStorage('bookmarkedMarkets') ?? []
   );
   const [filteredMarkets, setFilteredMarkets] = useState([]);
+
+  useEffect(() => {
+    fetch('http://localhost:4000/profile')
+      .then((result) => result.json())
+      .then((profileFromApi) => setMarkets(profileFromApi))
+      .catch((error) => console.error(error));
+  }, []);
 
   useEffect(() => {
     fetch('http://localhost:4000/market')
@@ -30,6 +39,19 @@ function App() {
   useEffect(() => {
     saveToLocalStorage('bookmarkedMarkets', bookmarkedMarkets);
   }, [bookmarkedMarkets]);
+
+  function addProfile(profile) {
+    fetch('http://localhost:4000/profile', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(profile),
+    })
+      .then((result) => result.json())
+      .then((profile) => setProfiles([...profiles, profile]))
+      .catch((error) => console.error(error));
+  }
 
   function addMarket(market) {
     fetch('http://localhost:4000/market', {
@@ -126,9 +148,7 @@ function App() {
 
   return (
     <div>
-      <Header>
-        <h1>Mittelalter-Märkte</h1>
-      </Header>
+      <Headers />
       <main>
         <BurgerMenu />
         <Switch>
@@ -157,7 +177,9 @@ function App() {
           <Route path="/createmarket">
             <MarketForm onAddMarket={addMarket} />
           </Route>
-          <Route path="/profil">Profil</Route>
+          <Route path="/profile">
+            <Profil onAddProfile={addProfile} />
+          </Route>
           <Route path="/contact">Kontakt</Route>
           <Route path="/impressum">Impressum</Route>
         </Switch>
@@ -167,24 +189,3 @@ function App() {
 }
 
 export default App;
-
-const Header = styled.header`
-  display: flex;
-  position: fixed;
-  z-index: 100;
-  background: hsl(37, 48%, 38%);
-  border: groove 0.5rem goldenrod;
-  border-radius: 0.8rem;
-  color: hsl(37, 19%, 70%);
-  justify-content: center;
-  left: 0;
-  margin: 0 auto;
-  padding: 1rem;
-  top: 0;
-  width: 100%;
-
-  h1 {
-    margin: 0;
-    padding: 0;
-  }
-`;

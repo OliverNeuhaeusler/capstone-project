@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components/macro';
+import { validateForm } from '../lib/validation.js';
 import ImagePreview from '../components/imagePreview.js';
 
 export default function MarketForm({ onAddMarket }) {
@@ -15,6 +16,7 @@ export default function MarketForm({ onAddMarket }) {
 
   const [market, setMarket] = useState(initialMarketState);
   const [imageUploads, setImageUploads] = useState([]);
+  const [isError, setIsError] = useState(false);
 
   useEffect(() => {
     uploadImage(imageUploads);
@@ -29,8 +31,14 @@ export default function MarketForm({ onAddMarket }) {
 
   function handleFormSubmit(event) {
     event.preventDefault();
-    onAddMarket(market);
-    setMarket(initialMarketState);
+
+    if (validateForm(market)) {
+      onAddMarket(market);
+      setMarket(initialMarketState);
+      setIsError(false);
+    } else {
+      setIsError(true);
+    }
   }
 
   function uploadImage(imageUploads) {
@@ -57,7 +65,10 @@ export default function MarketForm({ onAddMarket }) {
   return (
     <div>
       <Form onSubmit={handleFormSubmit}>
-        <h2>Markt erstellen.</h2>
+        <h2>Markt erstellen</h2>
+        <ErrorBox data-testid="form-error-display" isError={isError}>
+          <p>You have an error in your form.</p>
+        </ErrorBox>
         <label htmlFor="marketName">Markt Name</label>
         <input
           type="text"
@@ -143,4 +154,16 @@ const Button = styled.button`
   font-size: 1.2rem;
   color: ${(props) =>
     props.isPrimary ? 'hsl(37, 19%, 90%)' : 'hsl(37, 19%, 30%)'}; ;
+`;
+
+const ErrorBox = styled.div`
+  background: hsl(340, 60%, 50%);
+  color: hsl(340, 95%, 95%);
+  padding: ${(props) => (props.isError ? '1.2rem' : 0)};
+  border-radius: 0.5rem;
+  opacity: ${(props) => (props.isError ? 1 : 0)};
+  max-height: ${(props) => (props.isError ? '100%' : '1px')};
+  transition: all 1s ease-in-out;
+  font-size: ${(props) => (props.isError ? '1rem' : '1px')};
+  font-weight: bold;
 `;
