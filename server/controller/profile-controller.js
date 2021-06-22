@@ -1,3 +1,4 @@
+import jwt from 'jsonwebtoken';
 import Profile from '../models/profile.model.js';
 
 function postProfiles(req, res) {
@@ -17,20 +18,20 @@ function postProfiles(req, res) {
 }
 
 function getProfiles(req, res) {
-  const { profileId } = req.params;
-  const updatedProfile = req.body;
-  Profiles.findById(
-    { _id: profileId },
-    updatedProfile,
-    { new: true },
-    (error, doc) => {
-      if (error) {
-        res.json({ message: 'could not get this profile.' });
-        return;
-      }
-      res.json(doc);
-    }
-  );
+  const token = req.header('auth-token');
+  const decodedToken = jwt.decode(token);
+  const profileId = decodedToken.profileId;
+  Profile.findOne({ _id: profileId }).then((profile) => {
+    res.json({
+      firstName: profile.firstName,
+      secondName: profile.secondName,
+      street: profile.street,
+      address: profile.address,
+      email: profile.email,
+      image: profile.image,
+      profileId: profile._id,
+    });
+  });
 }
 
 export { postProfiles, getProfiles };

@@ -1,6 +1,8 @@
 import { useState } from 'react';
+import { Redirect } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import { validateProfile } from '../lib/validation.js';
+import registerUser from '../components/registerUser.js';
 
 export default function CreateProfile({ onAddProfile }) {
   const initialProfileState = {
@@ -15,7 +17,10 @@ export default function CreateProfile({ onAddProfile }) {
   };
 
   const [profile, setProfile] = useState(initialProfileState);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [isRegistered, setIsRegistered] = useState(false);
   const [isError, setIsError] = useState(false);
+  const [userExist, setUserExist] = useState(false);
 
   function updateProfile(event) {
     const fieldName = event.target.name;
@@ -26,9 +31,17 @@ export default function CreateProfile({ onAddProfile }) {
 
   function handleFormSubmit(event) {
     event.preventDefault();
-
+    registerUser(profile)
+      .then((result) => {
+        if (result.message === 'success') {
+          setIsSuccess(true);
+        } else if (result.message === 'Email already taken') {
+          setUserExist(true);
+        }
+      })
+      .catch(() => setUserExist(false));
     if (validateProfile(profile)) {
-      onAddProfile(profile);
+      /* onAddProfile(profile); */
       setProfile(initialProfileState);
       setIsError(false);
     } else {
@@ -99,6 +112,29 @@ export default function CreateProfile({ onAddProfile }) {
           Reset
         </Button>
       </Form>
+      {isSuccess && (
+        <StyledBackgroundModal>
+          <StyledModal>
+            <p>Sign Up successful</p>
+            <StyledButton onClick={() => setIsRegistered(true)}>
+              I Dare
+            </StyledButton>
+          </StyledModal>
+        </StyledBackgroundModal>
+      )}
+      {isRegistered && <Redirect to="/profile" />}
+
+      {userExist && (
+        <StyledBackgroundModal>
+          <StyledModal>
+            <p>Email taken!</p>
+            <StyledButton onClick={() => setIsError(true)}>
+              I Pussy Out
+            </StyledButton>
+          </StyledModal>
+        </StyledBackgroundModal>
+      )}
+      {isError && <Redirect to="/" />}
     </div>
   );
 }
@@ -153,4 +189,37 @@ const ErrorBox = styled.div`
   transition: all 1s ease-in-out;
   font-size: ${(props) => (props.isError ? '1rem' : '1px')};
   font-weight: bold;
+`;
+
+const StyledBackgroundModal = styled.div`
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const StyledModal = styled.div`
+  color: #fff;
+  background: linear-gradient(-45deg, #e73c7e, #23a6d5);
+  height: 20%;
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  border-radius: 20px;
+  align-items: center;
+  flex-direction: column;
+`;
+
+const StyledButton = styled.button`
+  color: #fbfcfd;
+  background: transparent;
+  border: 1px solid #fbfcfd;
+  border-radius: 20px;
+  outline: none;
+  cursor: pointer;
+  padding: 10px 25px;
+  margin: 5px;
 `;

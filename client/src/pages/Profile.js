@@ -1,15 +1,33 @@
-import styled from 'styled-components/macro';
+import { useEffect, useState } from 'react';
+import { loadToken } from '../lib/tokenStorage.js';
 
-function ProfileCard({}) {
+function ProfileCard() {
+  const [profile, setProfile] = useState([]);
+  console.log(1, profile);
+
+  function getProfile() {
+    return fetch('http://localhost:4000/profile', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'auth-token': loadToken(),
+      },
+    }).then((res) => res.json());
+  }
+
+  useEffect(() => {
+    getProfile().then((profile) => setProfile(profile));
+  }, []);
+
   return (
-    <Section>
+    <section>
       <h3>
         {profile.firstName}
         {profile.secondName}
       </h3>
       <p>{profile.street}</p>
       <p>{profile.address}</p>
-    </Section>
+    </section>
   );
 }
 

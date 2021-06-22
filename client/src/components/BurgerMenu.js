@@ -23,6 +23,9 @@ function BurgerMenu() {
       <NavLink to="/createmarket">
         Markt erstellen <img src={Med} alt="create festivals" />
       </NavLink>
+      <NavLink to="/createProfile">
+        Profil erstellen <img src={Profile} alt="create profile" />
+      </NavLink>
       <NavLink to="/profile">
         Profil <img src={Profile} alt="create profile" />
       </NavLink>
