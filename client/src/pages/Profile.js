@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import styled from 'styled-components/macro';
@@ -50,10 +51,24 @@ function ProfileCard() {
         </StyledBackgroundModal>
       )}
       {changePage && <Redirect to="/" />}
+=======
+import styled from 'styled-components/macro';
+
+function ProfileCard({}) {
+  return (
+    <Section>
+      <h3>
+        {profile.firstName}
+        {profile.secondName}
+      </h3>
+      <p>{profile.street}</p>
+      <p>{profile.address}</p>
+>>>>>>> main
     </Section>
   );
 }
 
+<<<<<<< HEAD
 const Section = styled.section`
   display: flex;
   background: hsla(142, 30%, 25%, 0.6);
@@ -120,4 +135,6 @@ const StyledButton = styled.button`
   margin: 0.313rem;
 `;
 
+=======
+>>>>>>> main
 export default ProfileCard;

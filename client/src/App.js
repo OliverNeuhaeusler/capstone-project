@@ -12,10 +12,18 @@ import { saveToLocalStorage, loadFromLocalStorage } from './lib/localStorage';
 
 function App() {
   const [markets, setMarkets] = useState(loadFromLocalStorage('Markets') ?? []);
+  const [profiles, setProfiles] = useState([]);
   const [bookmarkedMarkets, setBookmarkedMarkets] = useState(
     loadFromLocalStorage('bookmarkedMarkets') ?? []
   );
   const [filteredMarkets, setFilteredMarkets] = useState([]);
+
+  useEffect(() => {
+    fetch('http://localhost:4000/profile')
+      .then((result) => result.json())
+      .then((profileFromApi) => setMarkets(profileFromApi))
+      .catch((error) => console.error(error));
+  }, []);
 
   useEffect(() => {
     fetch('http://localhost:4000/market')
@@ -32,6 +40,19 @@ function App() {
   useEffect(() => {
     saveToLocalStorage('bookmarkedMarkets', bookmarkedMarkets);
   }, [bookmarkedMarkets]);
+
+  function addProfile(profile) {
+    fetch('http://localhost:4000/profile', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(profile),
+    })
+      .then((result) => result.json())
+      .then((profile) => setProfiles([...profiles, profile]))
+      .catch((error) => console.error(error));
+  }
 
   function addMarket(market) {
     fetch('http://localhost:4000/market', {
