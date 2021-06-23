@@ -5,9 +5,14 @@ import marketRoutes from './routes/market.routes.js';
 import profilRoutes from './routes/profil.routes.js';
 import dirname from './lib/pathHelpers.js';
 import path from 'path';
+import dotenv from 'dotenv';
 const __dirname = dirname(import.meta.url);
 
-const connectionString = 'mongodb://localhost:27017/medieval-market';
+dotenv.config();
+
+const connectionString =
+  process.env.DB_CONNECTION || 'mongodb://localhost:27017/medieval-market';
+
 mongoose.connect(connectionString, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
