@@ -1,15 +1,22 @@
 import { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import styled from 'styled-components/macro';
-import { saveToken } from '../lib/tokenStorage.js';
+import { saveToken, deleteToken } from '../lib/tokenStorage.js';
 import logInUser from './loginUser.js';
 
 export default function Login() {
   const [profile, setProfile] = useState([]);
   const [loggedIn, setLoggedIn] = useState(false);
+  const [isLoggedOut, setIsLoggedOut] = useState(false);
+  const [changePage, setChangePage] = useState(false);
   const [wrongData, setWrongData] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [isError, setIsError] = useState(false);
+  console.log(1, loggedIn);
+  console.log(2, isLoggedOut);
+  console.log(3, wrongData);
+  console.log(4, isSuccess);
+  console.log(5, isError);
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -32,6 +39,11 @@ export default function Login() {
       [event.target.name]: event.target.value,
     }));
   };
+
+  function logOut() {
+    deleteToken();
+    setIsLoggedOut(true);
+  }
 
   return (
     <>
@@ -57,32 +69,42 @@ export default function Login() {
             onChange={handleInputChange}
           />
         </article>
-        <button type="submit" onClick={handleSubmit}>
-          Login
-        </button>
+        <StyledButton onClick={handleSubmit}>Login</StyledButton>
+        {isSuccess && (
+          <StyledBackgroundModal>
+            <StyledModal>
+              <p>Login successful</p>
+              <StyledButton onClick={() => setLoggedIn(true)}>
+                I like
+              </StyledButton>
+            </StyledModal>
+          </StyledBackgroundModal>
+        )}
+        {loggedIn && <Redirect to="/profile" />}
+        {wrongData && (
+          <StyledBackgroundModal>
+            <StyledModal>
+              <p>User or Password wrong</p>
+              <StyledButton onClick={() => setIsError(true)}>
+                Try it again
+              </StyledButton>
+            </StyledModal>
+          </StyledBackgroundModal>
+        )}
+        {isError && <Redirect to="/" />}
+        <StyledButton onClick={logOut}>Logout</StyledButton>
+        {isLoggedOut && (
+          <StyledBackgroundModal>
+            <StyledModal>
+              <p>Logout successful</p>
+              <StyledButton onClick={() => setChangePage(true)}>
+                Komme bald wieder
+              </StyledButton>
+            </StyledModal>
+          </StyledBackgroundModal>
+        )}
+        {changePage && <Redirect to="/profile" />}
       </LoginForm>
-      {isSuccess && (
-        <StyledBackgroundModal>
-          <StyledModal>
-            <p>Login successful</p>
-            <StyledButton onClick={() => setLoggedIn(true)}>
-              I Dare
-            </StyledButton>
-          </StyledModal>
-        </StyledBackgroundModal>
-      )}
-      {loggedIn && <Redirect to="/" />}
-      {wrongData && (
-        <StyledBackgroundModal>
-          <StyledModal>
-            <p>User or Password wrong</p>
-            <StyledButton onClick={() => setIsError(true)}>
-              I Pussy out
-            </StyledButton>
-          </StyledModal>
-        </StyledBackgroundModal>
-      )}
-      {isError && <Redirect to="/" />}
     </>
   );
 }
@@ -93,7 +115,7 @@ const LoginForm = styled.form`
   align-items: center;
   flex-wrap: wrap;
   position: fixed;
-  left: 72%;
+  left: 70%;
   top: 2.5%;
 
   article {
@@ -114,27 +136,31 @@ const StyledBackgroundModal = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
 `;
 
 const StyledModal = styled.div`
-  color: #fff;
-  background: linear-gradient(-45deg, #e73c7e, #23a6d5);
+  color: hsl(37, 19%, 70%);
+  background: hsl(20, 38%, 26%);
   height: 20%;
   width: 50%;
   display: flex;
   justify-content: center;
-  border-radius: 20px;
+  border-radius: 1.25rem;
   align-items: center;
   flex-direction: column;
 `;
 
 const StyledButton = styled.button`
-  color: #fbfcfd;
-  background: transparent;
-  border: 1px solid #fbfcfd;
-  border-radius: 20px;
+  color: hsl(20, 38%, 26%);
+  background: hsl(37, 19%, 70%);
+  border: 1px solid hsl(37, 19%, 70%);
+  border-radius: 1.25rem;
   outline: none;
   cursor: pointer;
-  padding: 10px 25px;
-  margin: 5px;
+  padding: 0.3rem 0.7rem;
+  margin: 0.313ewm;
 `;
