@@ -3,16 +3,10 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 import path from 'path';
 import marketRoutes from './routes/market.routes.js';
-<<<<<<< HEAD
 import profileRoutes from './routes/profile.routes.js';
 import authRoutes from './routes/auth.routes.js';
 import dirname from './lib/pathHelpers.js';
-=======
-import profilRoutes from './routes/profil.routes.js';
-import dirname from './lib/pathHelpers.js';
-import path from 'path';
 import dotenv from 'dotenv';
->>>>>>> main
 const __dirname = dirname(import.meta.url);
 
 dotenv.config();
@@ -35,12 +29,8 @@ server.get('/health', (req, res) =>
   res.json({ status: 'Server is running. ' })
 );
 server.use(marketRoutes);
-<<<<<<< HEAD
 server.use(profileRoutes);
 server.use(authRoutes);
-=======
-server.use(profilRoutes);
->>>>>>> main
 
 server.use(express.static(path.join(__dirname, '../client/build')));
 server.get('/*', (req, res) => {

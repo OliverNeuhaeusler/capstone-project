@@ -12,11 +12,6 @@ export default function Login() {
   const [wrongData, setWrongData] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [isError, setIsError] = useState(false);
-  console.log(1, loggedIn);
-  console.log(2, isLoggedOut);
-  console.log(3, wrongData);
-  console.log(4, isSuccess);
-  console.log(5, isError);
 
   function handleSubmit(event) {
     event.preventDefault();

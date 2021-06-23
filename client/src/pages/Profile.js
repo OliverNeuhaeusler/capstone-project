@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import styled from 'styled-components/macro';
@@ -8,8 +7,7 @@ function ProfileCard() {
   const [profile, setProfile] = useState([]);
   const [isLoggedOut, setIsLoggedOut] = useState(false);
   const [changePage, setChangePage] = useState(false);
-  console.log(6, isLoggedOut);
-  console.log(7, changePage);
+  console.log(1, profile);
   useEffect(() => {
     getProfile().then((profile) => setProfile(profile));
   }, []);
@@ -51,24 +49,10 @@ function ProfileCard() {
         </StyledBackgroundModal>
       )}
       {changePage && <Redirect to="/" />}
-=======
-import styled from 'styled-components/macro';
-
-function ProfileCard({}) {
-  return (
-    <Section>
-      <h3>
-        {profile.firstName}
-        {profile.secondName}
-      </h3>
-      <p>{profile.street}</p>
-      <p>{profile.address}</p>
->>>>>>> main
     </Section>
   );
 }
 
-<<<<<<< HEAD
 const Section = styled.section`
   display: flex;
   background: hsla(142, 30%, 25%, 0.6);
@@ -135,6 +119,20 @@ const StyledButton = styled.button`
   margin: 0.313rem;
 `;
 
-=======
->>>>>>> main
+const ImageWrapper = styled.section`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 0.5rem;
+  justify-content: center;
+  height: auto;
+  align-items: center;
+`;
+
+const Img = styled.img`
+  padding: 0.4rem;
+  width: 200px;
+  border-radius: 100vw;
+`;
+
 export default ProfileCard;

@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import { validateProfile } from '../lib/validation.js';
 import registerUser from '../components/registerUser.js';
 
-export default function CreateProfile({ onAddProfile }) {
+export default function CreateProfile() {
   const initialProfileState = {
     firstName: '',
     secondName: '',
@@ -17,6 +17,7 @@ export default function CreateProfile({ onAddProfile }) {
   };
 
   const [profile, setProfile] = useState(initialProfileState);
+
   const [isSuccess, setIsSuccess] = useState(false);
   const [isRegistered, setIsRegistered] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -105,6 +106,7 @@ export default function CreateProfile({ onAddProfile }) {
           onChange={updateProfile}
           value={profile.confirmPassword}
         />
+
         <Button isPrimary onClick={handleFormSubmit}>
           Profil erstellen.
         </Button>
