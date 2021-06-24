@@ -18,14 +18,14 @@ function App() {
   const [filteredMarkets, setFilteredMarkets] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:4000/profile')
+    fetch('/profile')
       .then((result) => result.json())
       .then((profileFromApi) => setMarkets(profileFromApi))
       .catch((error) => console.error(error));
   }, []);
 
   useEffect(() => {
-    fetch('http://localhost:4000/market')
+    fetch('/market')
       .then((result) => result.json())
       .then((marketFromApi) => setMarkets(marketFromApi))
       .catch((error) => console.error(error));
@@ -41,7 +41,7 @@ function App() {
   }, [bookmarkedMarkets]);
 
   function addProfile(profile) {
-    fetch('http://localhost:4000/profile', {
+    fetch('/profile', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -54,7 +54,7 @@ function App() {
   }
 
   function addMarket(market) {
-    fetch('http://localhost:4000/market', {
+    fetch('/market', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -121,7 +121,7 @@ function App() {
     markets.map((market) => {
       if (market._id === marketToUpdate._id) {
         market[marketProperty].push(commentOrRating);
-        fetch('http://localhost:4000/market/' + marketToUpdate._id, {
+        fetch('/market/' + marketToUpdate._id, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
