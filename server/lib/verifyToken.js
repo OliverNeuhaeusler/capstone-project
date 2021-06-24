@@ -9,7 +9,7 @@ function verifyToken(req, res, next) {
     return res.status(401).json({ success: false, message: 'Access Denied' });
 
   try {
-    const verified = jwt.verify(token, process.env.TOKEN_S);
+    const verified = jwt.verify(token, 'process.TOKEN_S');
     req.profile = verified;
     next();
   } catch (error) {

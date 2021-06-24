@@ -1,30 +1,27 @@
 import { useState } from 'react';
-import { Redirect } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components/macro';
-import { saveToken, deleteToken } from '../lib/tokenStorage.js';
+import { saveToken } from '../lib/tokenStorage.js';
 import logInUser from './loginUser.js';
 
-export default function Login() {
-  const [profile, setProfile] = useState([]);
-  const [loggedIn, setLoggedIn] = useState(false);
-  const [isLoggedOut, setIsLoggedOut] = useState(false);
-  const [changePage, setChangePage] = useState(false);
-  const [wrongData, setWrongData] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
-  const [isError, setIsError] = useState(false);
+export default function Login({ setLoggedIn }) {
+  const [profile, setProfile] = useState({});
+
+  const history = useHistory();
 
   function handleSubmit(event) {
     event.preventDefault();
     logInUser(profile)
       .then((result) => {
         if (result.message !== 'success') {
-          setWrongData(true);
+          alert('Falsche Passwort oder Email');
         } else {
+          setLoggedIn(true);
           saveToken(result.token);
-          setIsSuccess(true);
+          history.push('/profile');
         }
       })
-      .catch(() => setWrongData(true));
+      .catch((error) => console.error(error.message));
   }
 
   const handleInputChange = (event) => {
@@ -34,11 +31,6 @@ export default function Login() {
       [event.target.name]: event.target.value,
     }));
   };
-
-  function logOut() {
-    deleteToken();
-    setIsLoggedOut(true);
-  }
 
   return (
     <>
@@ -65,40 +57,6 @@ export default function Login() {
           />
         </article>
         <StyledButton onClick={handleSubmit}>Login</StyledButton>
-        {isSuccess && (
-          <StyledBackgroundModal>
-            <StyledModal>
-              <p>Login successful</p>
-              <StyledButton onClick={() => setLoggedIn(true)}>
-                I like
-              </StyledButton>
-            </StyledModal>
-          </StyledBackgroundModal>
-        )}
-        {loggedIn && <Redirect to="/profile" />}
-        {wrongData && (
-          <StyledBackgroundModal>
-            <StyledModal>
-              <p>User or Password wrong</p>
-              <StyledButton onClick={() => setIsError(true)}>
-                Try it again
-              </StyledButton>
-            </StyledModal>
-          </StyledBackgroundModal>
-        )}
-        {isError && <Redirect to="/" />}
-        <StyledButton onClick={logOut}>Logout</StyledButton>
-        {isLoggedOut && (
-          <StyledBackgroundModal>
-            <StyledModal>
-              <p>Logout successful</p>
-              <StyledButton onClick={() => setChangePage(true)}>
-                Komme bald wieder
-              </StyledButton>
-            </StyledModal>
-          </StyledBackgroundModal>
-        )}
-        {changePage && <Redirect to="/profile" />}
       </LoginForm>
     </>
   );
@@ -121,32 +79,6 @@ const LoginForm = styled.form`
     color: hsl(37, 19%, 90%);
     padding: 0.5rem;
   }
-`;
-
-const StyledBackgroundModal = styled.div`
-  position: fixed;
-  width: 100%;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-`;
-
-const StyledModal = styled.div`
-  color: hsl(37, 19%, 70%);
-  background: hsl(20, 38%, 26%);
-  height: 20%;
-  width: 50%;
-  display: flex;
-  justify-content: center;
-  border-radius: 1.25rem;
-  align-items: center;
-  flex-direction: column;
 `;
 
 const StyledButton = styled.button`

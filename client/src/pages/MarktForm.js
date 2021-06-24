@@ -3,7 +3,7 @@ import styled from 'styled-components/macro';
 import { validateForm } from '../lib/validation.js';
 import ImagePreview from '../components/imagePreview.js';
 
-export default function MarketForm({ onAddMarket }) {
+export default function MarketForm({ onAddMarket, loggedIn }) {
   const initialMarketState = {
     name: '',
     street: '',
@@ -20,6 +20,7 @@ export default function MarketForm({ onAddMarket }) {
 
   useEffect(() => {
     uploadImage(imageUploads);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [imageUploads]);
 
   function updateMarket(event) {
@@ -63,56 +64,62 @@ export default function MarketForm({ onAddMarket }) {
   }
 
   return (
-    <div>
-      <Form onSubmit={handleFormSubmit}>
-        <h2>Markt erstellen</h2>
-        <ErrorBox data-testid="form-error-display" isError={isError}>
-          <p>You have an error in your form.</p>
-        </ErrorBox>
-        <label htmlFor="marketName">Markt Name</label>
-        <input
-          type="text"
-          name="name"
-          onChange={updateMarket}
-          value={market.name}
-        />
-        <label htmlFor="street">Straße</label>
-        <input
-          type="name"
-          name="street"
-          onChange={updateMarket}
-          value={market.street}
-        />
-        <label htmlFor="address"> PLZ / ORT </label>
-        <input
-          type="text"
-          name="address"
-          onChange={updateMarket}
-          value={market.address}
-        />
-        <label htmlFor="description"> Beschreibung </label>
-        <input
-          type="text"
-          name="description"
-          onChange={updateMarket}
-          value={market.description}
-        />
-        <input
-          type="file"
-          multiple
-          onChange={(e) => {
-            setImageUploads(e.target.files);
-          }}
-        ></input>
-        <ImagePreview imageWidth={30} market={market} />
-        <Button isPrimary onClick={handleFormSubmit}>
-          Markt erstellen.
-        </Button>
-        <Button type="reset" onClick={() => setMarket(initialMarketState)}>
-          Reset
-        </Button>
-      </Form>
-    </div>
+    <>
+      {loggedIn ? (
+        <div>
+          <Form onSubmit={handleFormSubmit}>
+            <h2>Markt erstellen</h2>
+            <ErrorBox data-testid="form-error-display" isError={isError}>
+              <p>You have an error in your form.</p>
+            </ErrorBox>
+            <label htmlFor="marketName">Markt Name</label>
+            <input
+              type="text"
+              name="name"
+              onChange={updateMarket}
+              value={market.name}
+            />
+            <label htmlFor="street">Straße</label>
+            <input
+              type="name"
+              name="street"
+              onChange={updateMarket}
+              value={market.street}
+            />
+            <label htmlFor="address"> PLZ / ORT </label>
+            <input
+              type="text"
+              name="address"
+              onChange={updateMarket}
+              value={market.address}
+            />
+            <label htmlFor="description"> Beschreibung </label>
+            <input
+              type="text"
+              name="description"
+              onChange={updateMarket}
+              value={market.description}
+            />
+            <input
+              type="file"
+              multiple
+              onChange={(e) => {
+                setImageUploads(e.target.files);
+              }}
+            ></input>
+            <ImagePreview imageWidth={30} market={market} />
+            <Button isPrimary onClick={handleFormSubmit}>
+              Markt erstellen.
+            </Button>
+            <Button type="reset" onClick={() => setMarket(initialMarketState)}>
+              Reset
+            </Button>
+          </Form>
+        </div>
+      ) : (
+        <P>Bitte melde dich zuerst an.</P>
+      )}
+    </>
   );
 }
 
@@ -166,4 +173,23 @@ const ErrorBox = styled.div`
   transition: all 1s ease-in-out;
   font-size: ${(props) => (props.isError ? '1rem' : '1px')};
   font-weight: bold;
+`;
+
+const P = styled.p`
+  display: flex;
+  background: hsla(142, 30%, 25%, 0.6);
+  border: groove 0.1rem goldenrod;
+  border-radius: 1rem;
+  color: hsl(37, 19%, 90%);
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+  height: auto;
+  width: 15rem;
+  min-width: calc((100% -2rem) / 3);
+  margin: 1rem auto;
+  position: relative;
+  z-index: 1;
+  padding: 1rem;
 `;

@@ -1,14 +1,15 @@
 import { useEffect, useState } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, useHistory } from 'react-router-dom';
 import Bookmarked from './components/Bookmark.js';
 import BurgerMenu from './components/BurgerMenu.js';
 import Headers from './components/Header.js';
+import Searchbar from './components/Searchbar.js';
 import Home from './pages/Home.js';
 import MarketForm from './pages/MarktForm.js';
 import CreateProfile from './pages/CreateProfile.js';
-import Searchbar from './components/Searchbar.js';
 import ProfileCard from './pages/Profile.js';
 import { saveToLocalStorage, loadFromLocalStorage } from './lib/localStorage';
+import { deleteToken } from './lib/tokenStorage.js';
 
 function App() {
   const [markets, setMarkets] = useState(loadFromLocalStorage('Markets') ?? []);
@@ -16,7 +17,9 @@ function App() {
     loadFromLocalStorage('bookmarkedMarkets') ?? []
   );
   const [filteredMarkets, setFilteredMarkets] = useState([]);
-
+  const [loggedIn, setLoggedIn] = useState(false);
+  console.log('log', loggedIn);
+  const history = useHistory();
   useEffect(() => {
     fetch('http://localhost:4000/profile')
       .then((result) => result.json())
@@ -132,10 +135,19 @@ function App() {
   function addRating(rating, marketToUpdate) {
     updateMarket('rating', rating, marketToUpdate);
   }
+  function logOut() {
+    deleteToken();
+    setLoggedIn(false);
+    history.push('/');
+  }
 
   return (
     <div>
-      <Headers />
+      <Headers
+        onLogOut={logOut}
+        loggedIn={loggedIn}
+        setLoggedIn={setLoggedIn}
+      />
       <main>
         <BurgerMenu />
         <Switch>
@@ -162,13 +174,13 @@ function App() {
             />
           </Route>
           <Route path="/createmarket">
-            <MarketForm onAddMarket={addMarket} />
+            <MarketForm onAddMarket={addMarket} loggedIn={loggedIn} />
           </Route>
           <Route path="/createProfile">
             <CreateProfile />
           </Route>
           <Route path="/profile">
-            <ProfileCard />
+            <ProfileCard loggedIn={loggedIn} />
           </Route>
           <Route path="/contact">Kontakt</Route>
           <Route path="/impressum">Impressum</Route>
