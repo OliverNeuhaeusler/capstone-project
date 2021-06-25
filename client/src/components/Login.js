@@ -52,6 +52,7 @@ export default function Login({ setLoggedIn }) {
           value={profile.password}
           onChange={handleInputChange}
         />
+
         <StyledButton onClick={handleSubmit}>Login</StyledButton>
       </LoginForm>
     </>

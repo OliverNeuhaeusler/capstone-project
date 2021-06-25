@@ -7,9 +7,9 @@ import Fav from '../assets/manuscriptgrey.png';
 import Med from '../assets/swords.png';
 import Profile from '../assets/king.png';
 
-function BurgerMenu() {
+function BurgerMenu({ open }) {
   return (
-    <Menu>
+    <Menu open={open}>
       <NavLink exact to="/">
         Home <img src={Castle} alt="Home" />
       </NavLink>
@@ -38,6 +38,46 @@ function BurgerMenu() {
 export default BurgerMenu;
 
 const Menu = styled.section`
+  border: groove 0.2rem goldenrod;
+  border-radius: 0.8rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  background: hsl(20, 38%, 26%);
+  height: 100vh;
+  text-align: left;
+  padding: 0.625rem 1.25rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: transform 0.3s ease-in-out;
+  transform: ${({ open }) => (open ? 'translateX(0)' : 'translateX(-100%)')};
+  z-index: 200;
+
+  @media (max-width: ${({ theme }) => theme.mobile}) {
+    width: 100%;
+  }
+
+  a {
+    color: hsl(37, 19%, 70%);
+    display: flex;
+    font-size: 1.5rem;
+    opacity: 0.5;
+    padding: 0.313rem;
+    text-decoration: none;
+  }
+  img {
+    width: 2rem;
+    height: 2rem;
+    margin-left: 1rem;
+  }
+
+  .active {
+    opacity: 1;
+  }
+`;
+
+/* const Menu = styled.section`
   background: hsl(20, 38%, 26%);
   border: groove 0.2rem goldenrod;
   border-radius: 0.8rem;
@@ -52,9 +92,8 @@ const Menu = styled.section`
   transition: transform 1.3s ease-in-out;
   width: 15.625rem;
   z-index: 200;
-  &:hover {
-    transform: translatex(15.625rem);
-  }
+    transform: ${({ open }) =>
+      open ? 'translateX(0)' : 'translatex(15.625rem)'};
 
   a {
     color: hsl(37, 19%, 70%);
@@ -72,4 +111,4 @@ const Menu = styled.section`
   .active {
     opacity: 1;
   }
-`;
+`; */

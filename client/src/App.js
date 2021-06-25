@@ -1,9 +1,12 @@
 import { useEffect, useState } from 'react';
 import { Switch, Route, useHistory } from 'react-router-dom';
+import { ThemeProvider } from 'styled-components';
 import Bookmarked from './components/Bookmark.js';
 import BurgerMenu from './components/BurgerMenu.js';
 import Headers from './components/Header.js';
 import Searchbar from './components/Searchbar.js';
+import Burger from './components/Burger/Burger.js';
+import { theme } from './components/Burger/Theme/theme.js';
 import Home from './pages/Home.js';
 import MarketForm from './pages/MarktForm.js';
 import CreateProfile from './pages/CreateProfile.js';
@@ -17,9 +20,9 @@ function App() {
     loadFromLocalStorage('bookmarkedMarkets') ?? []
   );
   const [filteredMarkets, setFilteredMarkets] = useState([]);
-
   const [loggedIn, setLoggedIn] = useState(false);
-  console.log('log', loggedIn);
+  const [open, setOpen] = useState(false);
+
   const history = useHistory();
 
   useEffect(() => {
@@ -138,49 +141,52 @@ function App() {
 
   return (
     <div>
-      <Headers
-        onLogOut={logOut}
-        loggedIn={loggedIn}
-        setLoggedIn={setLoggedIn}
-      />
-      <main>
-        <BurgerMenu />
-        <Switch>
-          <Route exact path="/">
-            <Home />
-          </Route>
-          <Route path="/market">
-            <Searchbar
-              filteredMarkets={filteredMarkets}
-              searchedMarkets={searchedMarkets}
-              addComment={addComment}
-              addRating={addRating}
-              toggleFav={toggleFav}
-              isFavorite={isFavorite}
-            />
-          </Route>
-          <Route path="/favorites">
-            <Bookmarked
-              bookmarkedMarkets={bookmarkedMarkets}
-              addComment={addComment}
-              addRating={addRating}
-              toggleFav={toggleFav}
-              isFavorite={isFavorite}
-            />
-          </Route>
-          <Route path="/createmarket">
-            <MarketForm onAddMarket={addMarket} loggedIn={loggedIn} />
-          </Route>
-          <Route path="/createProfile">
-            <CreateProfile />
-          </Route>
-          <Route path="/profile">
-            <ProfileCard loggedIn={loggedIn} />
-          </Route>
-          <Route path="/contact">Kontakt</Route>
-          <Route path="/impressum">Impressum</Route>
-        </Switch>
-      </main>
+      <ThemeProvider theme={theme}>
+        <Headers
+          onLogOut={logOut}
+          loggedIn={loggedIn}
+          setLoggedIn={setLoggedIn}
+        />
+        <main>
+          <Burger open={open} setOpen={setOpen} />
+          <BurgerMenu open={open} setOpen={setOpen} />
+          <Switch>
+            <Route exact path="/">
+              <Home />
+            </Route>
+            <Route path="/market">
+              <Searchbar
+                filteredMarkets={filteredMarkets}
+                searchedMarkets={searchedMarkets}
+                addComment={addComment}
+                addRating={addRating}
+                toggleFav={toggleFav}
+                isFavorite={isFavorite}
+              />
+            </Route>
+            <Route path="/favorites">
+              <Bookmarked
+                bookmarkedMarkets={bookmarkedMarkets}
+                addComment={addComment}
+                addRating={addRating}
+                toggleFav={toggleFav}
+                isFavorite={isFavorite}
+              />
+            </Route>
+            <Route path="/createmarket">
+              <MarketForm onAddMarket={addMarket} loggedIn={loggedIn} />
+            </Route>
+            <Route path="/createProfile">
+              <CreateProfile />
+            </Route>
+            <Route path="/profile">
+              <ProfileCard loggedIn={loggedIn} />
+            </Route>
+            <Route path="/contact">Kontakt</Route>
+            <Route path="/impressum">Impressum</Route>
+          </Switch>
+        </main>
+      </ThemeProvider>
     </div>
   );
 }

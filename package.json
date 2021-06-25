@@ -25,5 +25,8 @@
   "homepage": "https://github.com/OliverNeuhaeusler/mittelaltermarkt-app#readme",
   "devDependencies": {
     "concurrently": "^6.2.0"
+  },
+  "dependencies": {
+    "react-burger-menu": "^3.0.6"
   }
 }

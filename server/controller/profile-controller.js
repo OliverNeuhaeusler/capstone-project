@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import Profile from '../models/profile.model.js';
 
-function postProfiles(req, res) {
+/* function postProfiles(req, res) {
   const profile = new Profile({
     firstName: req.body.firstName,
     secondName: req.body.secondName,
@@ -15,7 +15,7 @@ function postProfiles(req, res) {
     .save()
     .then((profileSaved) => res.json(profileSaved))
     .catch((error) => res.json(error));
-}
+} */
 
 function getProfiles(req, res) {
   const token = req.header('auth-token');
@@ -34,4 +34,4 @@ function getProfiles(req, res) {
   });
 }
 
-export { postProfiles, getProfiles };
+export { /* postProfiles, */ getProfiles };
