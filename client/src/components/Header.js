@@ -1,10 +1,14 @@
 import styled from 'styled-components/macro';
 import Login from './Login.js';
-export default function Headers() {
+export default function Headers({ loggedIn, setLoggedIn, onLogOut }) {
   return (
     <Header>
       <h1>Mittelalter-Märkte</h1>
-      <Login />
+      {loggedIn ? (
+        <StyledButton onClick={onLogOut}>Logout</StyledButton>
+      ) : (
+        <Login loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
+      )}
     </Header>
   );
 }
@@ -28,4 +32,18 @@ const Header = styled.header`
     margin: 0;
     padding: 0;
   }
+`;
+
+const StyledButton = styled.button`
+  color: hsl(20, 38%, 26%);
+  background: hsl(37, 19%, 70%);
+  border: 1px solid hsl(37, 19%, 70%);
+  border-radius: 1.25rem;
+  outline: none;
+  cursor: pointer;
+  padding: 0.3rem 0.7rem;
+  margin: 0.313ewm;
+  position: fixed;
+  left: 90%;
+  top: 3.5%;
 `;

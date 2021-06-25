@@ -1,8 +1,10 @@
 import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import { validateProfile } from '../lib/validation.js';
+import registerUser from '../components/registerUser.js';
 
-export default function Profile({ onAddProfile }) {
+export default function CreateProfile() {
   const initialProfileState = {
     firstName: '',
     secondName: '',
@@ -17,6 +19,7 @@ export default function Profile({ onAddProfile }) {
   const [profile, setProfile] = useState(initialProfileState);
   const [isError, setIsError] = useState(false);
 
+  const history = useHistory();
   function updateProfile(event) {
     const fieldName = event.target.name;
     let fieldValue = event.target.value;
@@ -26,11 +29,11 @@ export default function Profile({ onAddProfile }) {
 
   function handleFormSubmit(event) {
     event.preventDefault();
-
     if (validateProfile(profile)) {
-      onAddProfile(profile);
+      registerUser(profile);
       setProfile(initialProfileState);
       setIsError(false);
+      history.push('/profile');
     } else {
       setIsError(true);
     }
@@ -84,13 +87,6 @@ export default function Profile({ onAddProfile }) {
           name="password"
           onChange={updateProfile}
           value={profile.password}
-        />
-        <label htmlFor="confirmPassword"> Passwort bestätigen: </label>
-        <input
-          type="password"
-          name="confirmPassword"
-          onChange={updateProfile}
-          value={profile.confirmPassword}
         />
         <Button isPrimary onClick={handleFormSubmit}>
           Profil erstellen.
