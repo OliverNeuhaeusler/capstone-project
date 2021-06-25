@@ -1,9 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Switch, Route, useHistory } from 'react-router-dom';
-<<<<<<< HEAD
 import { ThemeProvider } from 'styled-components';
-=======
->>>>>>> main
 import Bookmarked from './components/Bookmark.js';
 import BurgerMenu from './components/BurgerMenu.js';
 import Headers from './components/Header.js';
@@ -26,8 +23,6 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [open, setOpen] = useState(false);
 
-  const [loggedIn, setLoggedIn] = useState(false);
-  console.log('log', loggedIn);
   const history = useHistory();
 
   useEffect(() => {
