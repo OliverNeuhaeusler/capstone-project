@@ -12,7 +12,8 @@ const __dirname = dirname(import.meta.url);
 dotenv.config();
 
 const connectionString =
-  process.env.DB_CONNECTION || 'mongodb://localhost:27017/medieval-market';
+  process.env
+    .DB_CONNECTION; /* ||  'mongodb://localhost:27017/medieval-market'  */
 
 mongoose.connect(connectionString, {
   useNewUrlParser: true,
@@ -37,5 +38,5 @@ server.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
 });
 
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 5000;
 server.listen(port);

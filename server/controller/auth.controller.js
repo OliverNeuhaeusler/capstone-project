@@ -51,7 +51,7 @@ const login = (req, res, next) => {
         if (result) {
           const token = jwt.sign(
             { email: profile.email, profileId: profile._id },
-            'process.TOKEN_S',
+            process.env.TOKEN_S,
             {
               expiresIn: '1h',
             }
