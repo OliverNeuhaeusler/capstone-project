@@ -20,12 +20,6 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   console.log('log', loggedIn);
   const history = useHistory();
-  useEffect(() => {
-    fetch('http://localhost:4000/profile')
-      .then((result) => result.json())
-      .then((profileFromApi) => setMarkets(profileFromApi))
-      .catch((error) => console.error(error));
-  }, []);
 
   useEffect(() => {
     fetch('http://localhost:4000/market')
