@@ -39,4 +39,4 @@ server.get('/*', (req, res) => {
 });
 
 const port = process.env.PORT || 5000;
-server.listen(port);
+server.listen(port, () => 'server is up and running on port ${port}');
