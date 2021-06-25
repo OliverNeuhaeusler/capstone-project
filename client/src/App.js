@@ -17,12 +17,14 @@ function App() {
     loadFromLocalStorage('bookmarkedMarkets') ?? []
   );
   const [filteredMarkets, setFilteredMarkets] = useState([]);
+
   const [loggedIn, setLoggedIn] = useState(false);
   console.log('log', loggedIn);
   const history = useHistory();
 
+
   useEffect(() => {
-    fetch('http://localhost:4000/market')
+    fetch('/market')
       .then((result) => result.json())
       .then((marketFromApi) => setMarkets(marketFromApi))
       .catch((error) => console.error(error));
@@ -38,7 +40,7 @@ function App() {
   }, [bookmarkedMarkets]);
 
   function addMarket(market) {
-    fetch('http://localhost:4000/market', {
+    fetch('/market', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -105,7 +107,7 @@ function App() {
     markets.map((market) => {
       if (market._id === marketToUpdate._id) {
         market[marketProperty].push(commentOrRating);
-        fetch('http://localhost:4000/market/' + marketToUpdate._id, {
+        fetch('/market/' + marketToUpdate._id, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
