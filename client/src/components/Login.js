@@ -35,27 +35,23 @@ export default function Login({ setLoggedIn }) {
   return (
     <>
       <LoginForm onSubmit={handleSubmit}>
-        <article id="email">
-          <label htmlFor="Email">Email:</label>
-          <input
-            id="Email"
-            autoFocus
-            name="email"
-            type="email"
-            value={profile.email}
-            onChange={handleInputChange}
-          />
-        </article>
-        <article id="password">
-          <label htmlFor="password">Password:</label>
-          <input
-            id="password"
-            type="password"
-            name="password"
-            value={profile.password}
-            onChange={handleInputChange}
-          />
-        </article>
+        <label htmlFor="Email">Email:</label>
+        <input
+          id="Email"
+          autoFocus
+          name="email"
+          type="email"
+          value={profile.email}
+          onChange={handleInputChange}
+        />
+        <label htmlFor="password">Password:</label>
+        <input
+          id="password"
+          type="password"
+          name="password"
+          value={profile.password}
+          onChange={handleInputChange}
+        />
         <StyledButton onClick={handleSubmit}>Login</StyledButton>
       </LoginForm>
     </>
@@ -89,5 +85,5 @@ const StyledButton = styled.button`
   outline: none;
   cursor: pointer;
   padding: 0.3rem 0.7rem;
-  margin: 0.313ewm;
+  margin: 0.313rem 1rem;
 `;
