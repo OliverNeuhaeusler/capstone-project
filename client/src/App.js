@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Switch, Route, useHistory } from 'react-router-dom';
+<<<<<<< HEAD
 import { ThemeProvider } from 'styled-components';
+=======
+>>>>>>> main
 import Bookmarked from './components/Bookmark.js';
 import BurgerMenu from './components/BurgerMenu.js';
 import Headers from './components/Header.js';
@@ -23,10 +26,12 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [open, setOpen] = useState(false);
 
+  const [loggedIn, setLoggedIn] = useState(false);
+  console.log('log', loggedIn);
   const history = useHistory();
 
   useEffect(() => {
-    fetch('http://localhost:5000/market')
+    fetch('/market')
       .then((result) => result.json())
       .then((marketFromApi) => setMarkets(marketFromApi))
       .catch((error) => console.error(error));
@@ -42,7 +47,7 @@ function App() {
   }, [bookmarkedMarkets]);
 
   function addMarket(market) {
-    fetch('http://localhost:5000/market', {
+    fetch('/market', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -109,7 +114,7 @@ function App() {
     markets.map((market) => {
       if (market._id === marketToUpdate._id) {
         market[marketProperty].push(commentOrRating);
-        fetch('http://localhost:5000/market/' + marketToUpdate._id, {
+        fetch('/market/' + marketToUpdate._id, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',

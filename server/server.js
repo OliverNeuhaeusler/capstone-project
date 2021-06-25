@@ -13,7 +13,11 @@ dotenv.config();
 
 const connectionString =
   process.env
+<<<<<<< HEAD
     .DB_CONNECTION; /* ||  'mongodb://localhost:27017/medieval-market'  */
+=======
+    .DB_CONNECTION; /* || 'mongodb://localhost:27017/medieval-market' */
+>>>>>>> main
 
 mongoose.connect(connectionString, {
   useNewUrlParser: true,
