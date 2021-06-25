@@ -1,5 +1,5 @@
 export default function registerUser(data) {
-  return fetch('http://localhost:4000/createProfile', {
+  return fetch('/createProfile', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

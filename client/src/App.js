@@ -22,7 +22,6 @@ function App() {
   console.log('log', loggedIn);
   const history = useHistory();
 
-
   useEffect(() => {
     fetch('/market')
       .then((result) => result.json())

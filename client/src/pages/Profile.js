@@ -10,7 +10,7 @@ function ProfileCard({ loggedIn }) {
   }, []);
 
   function getProfile() {
-    return fetch('http://localhost:4000/profile', {
+    return fetch('/profile', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
