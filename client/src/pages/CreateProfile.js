@@ -20,6 +20,7 @@ export default function CreateProfile() {
   const [isError, setIsError] = useState(false);
 
   const history = useHistory();
+
   function updateProfile(event) {
     const fieldName = event.target.name;
     let fieldValue = event.target.value;
@@ -101,52 +102,38 @@ export default function CreateProfile() {
 
 const Form = styled.form`
   display: grid;
+  font-weight: bold;
   gap: 0.5rem;
   margin: auto;
   max-width: 25rem;
-  label,
-  legend {
-    font-weight: bold;
-    span {
-      font-weight: normal;
-    }
-  }
-  legend {
-    margin-bottom: 0.5rem;
-    padding: 0;
-  }
-  input,
-  select {
-    padding: 0.5rem;
-    margin-bottom: 0.3rem;
-  }
 
-  img {
-    width: 80px;
+  input {
+    margin-bottom: 0.3rem;
+    padding: 0.5rem;
   }
 `;
 
 const Button = styled.button`
-  padding: 1.5rem;
   border-radius: 0.4rem;
   border: none;
   background: ${(props) =>
-    props.isPrimary ? 'hsl(158, 18%, 30%)' : 'hsla(158, 18%, 30%, 0.3)'};
-  cursor: pointer;
-  font-weight: ${(props) => (props.isPrimary ? '600' : '100')};
-  font-size: 1.2rem;
+    props.isPrimary ? 'var(--PrimaryButtonDark)' : 'var(--PrimaryButtonLight)'};
   color: ${(props) =>
-    props.isPrimary ? 'hsl(37, 19%, 90%)' : 'hsl(37, 19%, 30%)'}; ;
+    props.isPrimary ? 'hsl(37, 19%, 90%)' : 'hsl(37, 19%, 30%)'};
+  cursor: pointer;
+  font-size: 1.2rem;
+  font-weight: ${(props) => (props.isPrimary ? '600' : '100')};
+  padding: 1.5rem;
 `;
 
 const ErrorBox = styled.div`
   background: hsl(340, 60%, 50%);
-  color: hsl(340, 95%, 95%);
-  padding: ${(props) => (props.isError ? '1.2rem' : 0)};
   border-radius: 0.5rem;
-  opacity: ${(props) => (props.isError ? 1 : 0)};
-  max-height: ${(props) => (props.isError ? '100%' : '1px')};
-  transition: all 1s ease-in-out;
+  color: hsl(340, 95%, 95%);
   font-size: ${(props) => (props.isError ? '1rem' : '1px')};
   font-weight: bold;
+  max-height: ${(props) => (props.isError ? '100%' : '1px')};
+  opacity: ${(props) => (props.isError ? 1 : 0)};
+  transition: all 1s ease-in-out;
+  padding: ${(props) => (props.isError ? '1.2rem' : 0)};
 `;

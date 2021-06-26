@@ -38,77 +38,37 @@ function BurgerMenu({ open }) {
 export default BurgerMenu;
 
 const Menu = styled.section`
-  border: groove 0.2rem goldenrod;
+  background: hsl(20, 38%, 26%);
+  border: groove 0.2rem var(--PrimaryBorder);
   border-radius: 0.8rem;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
-  background: hsl(20, 38%, 26%);
   height: 100vh;
-  text-align: left;
-  padding: 0.625rem 1.25rem;
-  position: absolute;
-  top: 0;
+  justify-content: space-evenly;
   left: 0;
-  transition: transform 0.3s ease-in-out;
+  padding: 1.25rem 1.25rem 0.625rem;
+  position: fixed;
+  text-align: left;
+  top: 0;
   transform: ${({ open }) => (open ? 'translateX(0)' : 'translateX(-100%)')};
+  transition: transform 0.3s ease-in-out;
   z-index: 200;
-
-  @media (max-width: ${({ theme }) => theme.mobile}) {
-    width: 100%;
-  }
 
   a {
     color: hsl(37, 19%, 70%);
     display: flex;
     font-size: 1.5rem;
-    opacity: 0.5;
+    opacity: 0.2;
     padding: 0.313rem;
     text-decoration: none;
   }
   img {
-    width: 2rem;
     height: 2rem;
     margin-left: 1rem;
+    width: 2rem;
   }
 
   .active {
     opacity: 1;
   }
 `;
-
-/* const Menu = styled.section`
-  background: hsl(20, 38%, 26%);
-  border: groove 0.2rem goldenrod;
-  border-radius: 0.8rem;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  justify-content: space-around;
-  position: absolute;
-  padding: 0.625rem 1.25rem;
-  right: 99.9%;
-  top: 0;
-  transition: transform 1.3s ease-in-out;
-  width: 15.625rem;
-  z-index: 200;
-    transform: ${({ open }) =>
-      open ? 'translateX(0)' : 'translatex(15.625rem)'};
-
-  a {
-    color: hsl(37, 19%, 70%);
-    display: flex;
-    font-size: 1.5rem;
-    opacity: 0.5;
-    padding: 0.313rem;
-    text-decoration: none;
-  }
-  img {
-    width: 2rem;
-    height: 2rem;
-  }
-
-  .active {
-    opacity: 1;
-  }
-`; */

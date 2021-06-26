@@ -39,28 +39,27 @@ export default function Comments({ market, onAddComment }) {
 }
 
 const Comment = styled.section`
+  border: 2px groove var(--PrimaryBorder);
+  border-radius: 0.6rem;
   display: inline-flex;
   flex-basis: content;
-  gap: 0.2rem;
   font-family: sans-serif;
-  border: 2px groove goldenrod;
-  border-radius: 0.6rem;
+  gap: 0.2rem;
   padding: 0.5rem;
 
   input {
     display: inline-flex;
-    padding: 0.5rem;
     margin: 0.4rem;
+    padding: 0.5rem;
   }
 `;
 const Span = styled.span`
-  margin: 0.5rem;
   background: hsl(37, 48%, 38%);
-  border: groove 0.1rem goldenrod;
+  border: groove 0.1rem var(--PrimaryBorder);
   border-radius: 0.8rem;
   color: hsl(37, 19%, 90%);
+  margin: 0.5rem;
   padding: 0.5rem;
-  border-radius: 0.3rem;
 `;
 
 const CommentCloud = styled.article`

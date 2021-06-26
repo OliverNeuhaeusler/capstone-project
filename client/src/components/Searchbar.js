@@ -34,6 +34,6 @@ export default function Searchbar({
 const SearchboxInput = styled.input`
   display: block;
   margin: 1rem auto 2rem;
-  width: 30%;
   min-width: 300px;
+  width: 30%;
 `;

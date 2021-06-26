@@ -47,26 +47,27 @@ function MarketCard({
 export default MarketCard;
 
 const Section = styled.section`
-  display: flex;
-  background: hsla(142, 30%, 25%, 0.6);
+  align-items: center;
+  background: var(--PrimaryCard);
   border: groove 0.1rem goldenrod;
   border-radius: 1rem;
   color: hsl(37, 19%, 90%);
-  justify-content: center;
-  align-items: center;
+  display: flex;
   flex-direction: column;
   flex-wrap: wrap;
   height: auto;
-  width: 15rem;
-  min-width: calc((100% -2rem) / 3);
+  justify-content: center;
   margin: 1rem auto;
+  min-width: 15rem;
+  width: 40%;
   position: relative;
+  text-align: center;
   z-index: 1;
 
   p {
     margin: 0.1rem;
-    text-align: center;
     padding: 0 1rem;
+    text-align: center;
   }
 `;
 
@@ -76,22 +77,22 @@ const Rating = styled.span`
 `;
 
 const Button = styled.a`
-  padding: 0.6rem;
+  background: hsl(158, 10%, 20%);
   border-radius: 0.4rem;
   border: none;
-  background: hsl(158, 10%, 20%);
+  color: hsl(37, 19%, 95%);
   cursor: pointer;
   font-weight: 600;
   font-size: 1rem;
-  color: hsl(37, 19%, 95%);
-  margin: 0.5rem;
+  margin: 0.5rem auto 1rem;
+  padding: 0.6rem;
 `;
 
 const Bookmark = styled.img`
-  width: 30px;
+  cursor: pointer;
   opacity: ${(props) => (props.isFavorite ? '1' : '0.5')};
   position: absolute;
   right: 3%;
-  top: -3%;
-  cursor: pointer;
+  top: -2%;
+  width: 1.875rem;
 `;

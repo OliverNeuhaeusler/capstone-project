@@ -1,18 +1,17 @@
 import styled from 'styled-components';
 
 export const StyledBurger = styled.button`
-  position: absolute;
-  top: 3.5%;
-  left: 2rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  width: 2rem;
-  height: 2rem;
   background: transparent;
   border: none;
   cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  height: 2rem;
+  justify-content: space-around;
+  left: 1.2rem;
   padding: 0;
+  position: fixed;
+  top: 2rem;
   z-index: 300;
 
   &:focus {
@@ -20,14 +19,14 @@ export const StyledBurger = styled.button`
   }
 
   div {
-    width: 2rem;
-    height: 0.25rem;
     background: ${({ theme, open }) =>
       open ? theme.primaryLight : theme.primaryDark};
     border-radius: 10px;
-    transition: all 0.3s linear;
+    height: 0.25rem;
     position: relative;
     transform-origin: 1px;
+    transition: all 0.3s linear;
+    width: 2rem;
 
     :first-child {
       transform: ${({ open }) => (open ? 'rotate(45deg)' : 'rotate(0)')};

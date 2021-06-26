@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components/macro';
-import { saveToken } from '../lib/tokenStorage.js';
 import logInUser from './loginUser.js';
+import { saveToken } from '../lib/tokenStorage.js';
 
 export default function Login({ setLoggedIn }) {
   const [profile, setProfile] = useState({});
@@ -60,12 +60,12 @@ export default function Login({ setLoggedIn }) {
 }
 
 const LoginForm = styled.form`
-  display: flex;
-  justify-content: center;
   align-items: center;
+  display: flex;
   flex-wrap: wrap;
-  position: fixed;
+  justify-content: center;
   left: 70%;
+  position: fixed;
   top: 2.5%;
 
   article {
@@ -79,12 +79,12 @@ const LoginForm = styled.form`
 `;
 
 const StyledButton = styled.button`
-  color: hsl(20, 38%, 26%);
   background: hsl(37, 19%, 70%);
   border: 1px solid hsl(37, 19%, 70%);
   border-radius: 1.25rem;
-  outline: none;
+  color: hsl(20, 38%, 26%);
   cursor: pointer;
-  padding: 0.3rem 0.7rem;
   margin: 0.313rem 1rem;
+  outline: none;
+  padding: 0.3rem 0.7rem;
 `;

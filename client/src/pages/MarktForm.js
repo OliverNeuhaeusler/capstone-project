@@ -128,68 +128,56 @@ const Form = styled.form`
   gap: 0.5rem;
   margin: auto;
   max-width: 25rem;
-  label,
-  legend {
+  label {
     font-weight: bold;
-    span {
-      font-weight: normal;
-    }
-  }
-  legend {
-    margin-bottom: 0.5rem;
-    padding: 0;
-  }
-  input,
-  select {
-    padding: 0.5rem;
-    margin-bottom: 0.3rem;
   }
 
-  img {
-    width: 80px;
+  input {
+    padding: 0.5rem;
+    margin-bottom: 0.3rem;
   }
 `;
 
 const Button = styled.button`
-  padding: 1.5rem;
-  border-radius: 0.4rem;
-  border: none;
   background: ${(props) =>
-    props.isPrimary ? 'hsl(158, 18%, 30%)' : 'hsla(158, 18%, 30%, 0.3)'};
-  cursor: pointer;
-  font-weight: ${(props) => (props.isPrimary ? '600' : '100')};
-  font-size: 1.2rem;
+    props.isPrimary ? 'var(--PrimaryButtonDark)' : 'var(--PrimaryButtonLight)'};
+  border: none;
+  border-radius: 0.4rem;
   color: ${(props) =>
-    props.isPrimary ? 'hsl(37, 19%, 90%)' : 'hsl(37, 19%, 30%)'}; ;
+    props.isPrimary ? 'hsl(37, 19%, 90%)' : 'hsl(37, 19%, 30%)'};
+  cursor: pointer;
+  font-size: 1.2rem;
+  font-weight: ${(props) => (props.isPrimary ? '600' : '100')};
+  padding: 1.5rem;
 `;
 
 const ErrorBox = styled.div`
   background: hsl(340, 60%, 50%);
-  color: hsl(340, 95%, 95%);
-  padding: ${(props) => (props.isError ? '1.2rem' : 0)};
   border-radius: 0.5rem;
-  opacity: ${(props) => (props.isError ? 1 : 0)};
-  max-height: ${(props) => (props.isError ? '100%' : '1px')};
-  transition: all 1s ease-in-out;
+  color: hsl(340, 95%, 95%);
   font-size: ${(props) => (props.isError ? '1rem' : '1px')};
   font-weight: bold;
+  max-height: ${(props) => (props.isError ? '100%' : '1px')};
+  opacity: ${(props) => (props.isError ? 1 : 0)};
+  padding: ${(props) => (props.isError ? '1.2rem' : 0)};
+  transition: all 1s ease-in-out;
 `;
 
 const P = styled.p`
-  display: flex;
-  background: hsla(142, 30%, 25%, 0.6);
-  border: groove 0.1rem goldenrod;
+  align-items: center;
+  background: var(--PrimaryCard);
+  border: groove 0.1rem var(--PrimaryBorder);
   border-radius: 1rem;
   color: hsl(37, 19%, 90%);
-  justify-content: center;
-  align-items: center;
+  display: flex;
   flex-direction: column;
   flex-wrap: wrap;
   height: auto;
-  width: 15rem;
-  min-width: calc((100% -2rem) / 3);
+  justify-content: center;
   margin: 1rem auto;
-  position: relative;
-  z-index: 1;
+  min-width: calc((100% -2rem) / 3);
   padding: 1rem;
+  position: relative;
+  width: 15rem;
+  z-index: 1;
 `;

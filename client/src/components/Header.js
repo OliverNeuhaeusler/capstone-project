@@ -14,19 +14,19 @@ export default function Headers({ loggedIn, setLoggedIn, onLogOut }) {
 }
 
 const Header = styled.header`
-  display: flex;
-  position: fixed;
-  z-index: 100;
   background: hsl(37, 48%, 38%);
-  border: groove 0.5rem goldenrod;
+  border: groove 0.5rem var(--PrimaryBorder);
   border-radius: 0.8rem;
   color: hsl(37, 19%, 70%);
+  display: flex;
   justify-content: center;
   left: 0;
   margin: 0 auto;
   padding: 1rem;
+  position: fixed;
   top: 0;
   width: 100%;
+  z-index: 100;
 
   h1 {
     margin: 0;
@@ -35,15 +35,15 @@ const Header = styled.header`
 `;
 
 const StyledButton = styled.button`
-  color: hsl(20, 38%, 26%);
   background: hsl(37, 19%, 70%);
   border: 1px solid hsl(37, 19%, 70%);
   border-radius: 1.25rem;
-  outline: none;
+  color: hsl(20, 38%, 26%);
   cursor: pointer;
-  padding: 0.3rem 0.7rem;
-  margin: 0.313ewm;
-  position: fixed;
   left: 90%;
+  margin: 0.313ewm;
+  outline: none;
+  padding: 0.3rem 0.7rem;
+  position: fixed;
   top: 3.5%;
 `;

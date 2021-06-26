@@ -20,9 +20,12 @@ function Home() {
 export default Home;
 
 const Section = styled.section`
-  display: flex;
-  justify-content: center;
   align-items: center;
-  margin: auto;
+  display: flex;
   flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: auto;
+  padding: 1rem;
+  text-align: center;
 `;

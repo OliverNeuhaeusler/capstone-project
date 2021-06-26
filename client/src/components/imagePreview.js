@@ -11,13 +11,13 @@ export default function ImagePreview({ market, imageWidth }) {
 }
 
 const ImageWrapper = styled.section`
+  align-items: center;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  padding: 0.5rem;
-  justify-content: center;
   height: auto;
-  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
 `;
 
 const Img = styled.img`

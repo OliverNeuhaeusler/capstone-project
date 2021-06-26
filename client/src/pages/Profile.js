@@ -38,20 +38,20 @@ function ProfileCard({ loggedIn }) {
 }
 
 const Section = styled.section`
-  display: flex;
-  background: hsla(142, 30%, 25%, 0.6);
-  border: groove 0.1rem goldenrod;
+  align-items: center;
+  background: var(--PrimaryCard);
+  border: groove 0.1rem var(--PrimaryBorder);
   border-radius: 1rem;
   color: hsl(37, 19%, 90%);
-  justify-content: center;
-  align-items: center;
+  display: flex;
   flex-direction: column;
   flex-wrap: wrap;
   height: auto;
-  width: 15rem;
-  min-width: calc((100% -2rem) / 3);
+  justify-content: center;
   margin: 1rem auto;
+  min-width: calc((100% -2rem) / 3);
   position: relative;
+  width: 15rem;
   z-index: 1;
 
   article {
