@@ -11,7 +11,11 @@ import Home from './pages/Home.js';
 import MarketForm from './pages/MarktForm.js';
 import CreateProfile from './pages/CreateProfile.js';
 import ProfileCard from './pages/Profile.js';
-import { saveToLocalStorage, loadFromLocalStorage } from './lib/localStorage';
+import {
+  saveToLocalStorage,
+  loadFromLocalStorage,
+  deleteLocalStorage,
+} from './lib/localStorage';
 import { deleteToken } from './lib/tokenStorage.js';
 
 function App() {
@@ -135,6 +139,7 @@ function App() {
   }
   function logOut() {
     deleteToken();
+    deleteLocalStorage();
     setLoggedIn(false);
     history.push('/');
   }

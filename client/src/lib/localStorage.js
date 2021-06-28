@@ -10,3 +10,7 @@ export function loadFromLocalStorage(key) {
     console.error(error);
   }
 }
+
+export function deleteLocalStorage() {
+  localStorage.removeItem('Profile');
+}

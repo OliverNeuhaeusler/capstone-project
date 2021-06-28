@@ -2,13 +2,19 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components/macro';
 import Login from '../components/Login.js';
 import { loadToken } from '../lib/tokenStorage.js';
+import {
+  saveToLocalStorage,
+  loadFromLocalStorage,
+} from '../lib/localStorage.js';
 
 function ProfileCard({ loggedIn, setLoggedIn, onLogOut }) {
-  const [profile, setProfile] = useState([]);
+  const [profile, setProfile] = useState(loadFromLocalStorage('Profile') ?? []);
 
   useEffect(() => {
-    getProfile().then((profile) => setProfile(profile));
-  }, []);
+    getProfile()
+      .then((profile) => setProfile(profile))
+      .then(saveToLocalStorage('Profile', profile));
+  }, [profile]);
 
   function getProfile() {
     return fetch('/profile', {

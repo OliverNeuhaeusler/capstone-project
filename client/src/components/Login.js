@@ -5,7 +5,7 @@ import logInUser from './loginUser.js';
 import { saveToken } from '../lib/tokenStorage.js';
 
 export default function Login({ setLoggedIn }) {
-  const [profile, setProfile] = useState({});
+  const [profile, setProfile] = useState([]);
 
   const history = useHistory();
 
@@ -52,7 +52,6 @@ export default function Login({ setLoggedIn }) {
           value={profile.password}
           onChange={handleInputChange}
         />
-
         <StyledButton onClick={handleSubmit}>Login</StyledButton>
       </LoginForm>
     </>
