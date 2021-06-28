@@ -26,9 +26,9 @@ function App() {
   const [filteredMarkets, setFilteredMarkets] = useState([]);
   const [loggedIn, setLoggedIn] = useState(false);
   const [open, setOpen] = useState(false);
-
+  const [profile, setProfile] = useState([]);
   const history = useHistory();
-
+  console.log(1, profile);
   useEffect(() => {
     fetch('/market')
       .then((result) => result.json())
@@ -44,6 +44,10 @@ function App() {
   useEffect(() => {
     saveToLocalStorage('bookmarkedMarkets', bookmarkedMarkets);
   }, [bookmarkedMarkets]);
+
+  useEffect(() => {
+    setProfile(loadFromLocalStorage('Profile'));
+  }, []);
 
   function addMarket(market) {
     fetch('/market', {
@@ -152,7 +156,7 @@ function App() {
         <BurgerMenu loggedIn={loggedIn} open={open} setOpen={setOpen} />
         <Switch>
           <Route exact path="/">
-            <Home />
+            <Home profile={profile} loggedIn={loggedIn} />
           </Route>
           <Route path="/market">
             <Searchbar

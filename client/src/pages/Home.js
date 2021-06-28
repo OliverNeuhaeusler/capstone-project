@@ -1,9 +1,12 @@
 import styled from 'styled-components/macro';
 import HomeImage from '../assets/MittelaltermarktApp.jpeg';
-function Home() {
+function Home({ profile, loggedIn }) {
   return (
     <Section>
-      <h2>Seied Willkommen Mittelalterfan.</h2>
+      <h2>
+        {loggedIn ? 'Sei' : 'Seied'} Willkommen {''}
+        {loggedIn ? <span>{profile.firstName}</span> : 'Mittelalterfan'}.
+      </h2>
       <p>
         Hier findest du alle Mittelaltermärkte mit Bewertungen der Besucher,
         Bilder und kurze Infos zum Markt.
