@@ -140,54 +140,52 @@ function App() {
   }
 
   return (
-    <div>
-      <ThemeProvider theme={theme}>
-        <Headers
-          onLogOut={logOut}
-          loggedIn={loggedIn}
-          setLoggedIn={setLoggedIn}
-        />
-        <main>
-          <Burger open={open} setOpen={setOpen} />
-          <BurgerMenu open={open} setOpen={setOpen} />
-          <Switch>
-            <Route exact path="/">
-              <Home />
-            </Route>
-            <Route path="/market">
-              <Searchbar
-                filteredMarkets={filteredMarkets}
-                searchedMarkets={searchedMarkets}
-                addComment={addComment}
-                addRating={addRating}
-                toggleFav={toggleFav}
-                isFavorite={isFavorite}
-              />
-            </Route>
-            <Route path="/favorites">
-              <Bookmarked
-                bookmarkedMarkets={bookmarkedMarkets}
-                addComment={addComment}
-                addRating={addRating}
-                toggleFav={toggleFav}
-                isFavorite={isFavorite}
-              />
-            </Route>
-            <Route path="/createmarket">
-              <MarketForm onAddMarket={addMarket} loggedIn={loggedIn} />
-            </Route>
-            <Route path="/createProfile">
-              <CreateProfile />
-            </Route>
-            <Route path="/profile">
-              <ProfileCard loggedIn={loggedIn} />
-            </Route>
-            <Route path="/contact">Kontakt</Route>
-            <Route path="/impressum">Impressum</Route>
-          </Switch>
-        </main>
-      </ThemeProvider>
-    </div>
+    <ThemeProvider theme={theme}>
+      <Headers />
+      <main>
+        <Burger open={open} setOpen={setOpen} />
+        <BurgerMenu open={open} setOpen={setOpen} />
+        <Switch>
+          <Route exact path="/">
+            <Home />
+          </Route>
+          <Route path="/market">
+            <Searchbar
+              filteredMarkets={filteredMarkets}
+              searchedMarkets={searchedMarkets}
+              addComment={addComment}
+              addRating={addRating}
+              toggleFav={toggleFav}
+              isFavorite={isFavorite}
+            />
+          </Route>
+          <Route path="/favorites">
+            <Bookmarked
+              bookmarkedMarkets={bookmarkedMarkets}
+              addComment={addComment}
+              addRating={addRating}
+              toggleFav={toggleFav}
+              isFavorite={isFavorite}
+            />
+          </Route>
+          <Route path="/createmarket">
+            <MarketForm onAddMarket={addMarket} loggedIn={loggedIn} />
+          </Route>
+          <Route path="/createProfile">
+            <CreateProfile />
+          </Route>
+          <Route path="/profile">
+            <ProfileCard
+              onLogOut={logOut}
+              loggedIn={loggedIn}
+              setLoggedIn={setLoggedIn}
+            />
+          </Route>
+          <Route path="/contact">Kontakt</Route>
+          <Route path="/impressum">Impressum</Route>
+        </Switch>
+      </main>
+    </ThemeProvider>
   );
 }
 

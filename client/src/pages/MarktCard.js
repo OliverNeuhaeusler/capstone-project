@@ -1,6 +1,9 @@
+/* import { useState } from 'react'; */
 import styled from 'styled-components/macro';
 import Comments from '../components/Comments.js';
-import ImagePreview from '../components/imagePreview.js';
+import ImageGallery from '../components/DetailImage.js';
+/* import ImagePreview from '../components/imagePreview.js';
+import DetailImages from '../components/DetailImage.js'; */
 import RatingStar from '../components/Rating.js';
 import Manus from '../assets/manuscript.png';
 
@@ -11,6 +14,7 @@ function MarketCard({
   onAddComment,
   onAddRating,
 }) {
+  /*  const [detailImage, setDetailImage] = useState(true); */
   return (
     <Section>
       <Bookmark
@@ -23,7 +27,7 @@ function MarketCard({
       <p>{market.street}</p>
       <p>{market.address}</p>
       <p>{market.description}</p>
-      <ImagePreview imageWidth={60} market={market} />
+      <ImageGallery market={market} imageWidth={60} />
       <label htmlFor="comment">Kommentare</label>
       <Comments market={market} onAddComment={onAddComment} />
       <Rating>

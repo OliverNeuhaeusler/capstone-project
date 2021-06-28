@@ -62,11 +62,9 @@ export default function Login({ setLoggedIn }) {
 const LoginForm = styled.form`
   align-items: center;
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
   justify-content: center;
-  left: 70%;
-  position: fixed;
-  top: 2.5%;
 
   article {
     padding: 1rem;
@@ -84,7 +82,7 @@ const StyledButton = styled.button`
   border-radius: 1.25rem;
   color: hsl(20, 38%, 26%);
   cursor: pointer;
-  margin: 0.313rem 1rem;
+  margin: 1rem 1rem;
   outline: none;
   padding: 0.3rem 0.7rem;
 `;
