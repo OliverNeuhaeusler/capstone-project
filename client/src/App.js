@@ -16,7 +16,7 @@ import {
   loadFromLocalStorage,
   deleteLocalStorage,
 } from './lib/localStorage';
-import { deleteToken } from './lib/tokenStorage.js';
+import { deleteToken, loadToken } from './lib/tokenStorage.js';
 
 function App() {
   const [markets, setMarkets] = useState(loadFromLocalStorage('Markets') ?? []);
@@ -26,9 +26,12 @@ function App() {
   const [filteredMarkets, setFilteredMarkets] = useState([]);
   const [loggedIn, setLoggedIn] = useState(false);
   const [open, setOpen] = useState(false);
-  const [profile, setProfile] = useState([]);
+  const [profiles, setProfiles] = useState(
+    loadFromLocalStorage('Profile') ?? []
+  );
+
   const history = useHistory();
-  console.log(1, profile);
+
   useEffect(() => {
     fetch('/market')
       .then((result) => result.json())
@@ -38,6 +41,7 @@ function App() {
 
   useEffect(() => {
     saveToLocalStorage('Markets', markets);
+
     setFilteredMarkets(markets);
   }, [markets]);
 
@@ -45,9 +49,18 @@ function App() {
     saveToLocalStorage('bookmarkedMarkets', bookmarkedMarkets);
   }, [bookmarkedMarkets]);
 
-  useEffect(() => {
-    setProfile(loadFromLocalStorage('Profile'));
-  }, []);
+  function getProfile() {
+    return fetch('/profile', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'auth-token': loadToken(),
+      },
+    })
+      .then((res) => res.json())
+      .then((profiles) => setProfiles(profiles))
+      .then(saveToLocalStorage('Profile', profiles));
+  }
 
   function addMarket(market) {
     fetch('/market', {
@@ -156,7 +169,7 @@ function App() {
         <BurgerMenu loggedIn={loggedIn} open={open} setOpen={setOpen} />
         <Switch>
           <Route exact path="/">
-            <Home profile={profile} loggedIn={loggedIn} />
+            <Home profiles={profiles} loggedIn={loggedIn} />
           </Route>
           <Route path="/market">
             <Searchbar
@@ -185,6 +198,8 @@ function App() {
           </Route>
           <Route path="/profile">
             <ProfileCard
+              profiles={profiles}
+              getProfile={getProfile}
               onLogOut={logOut}
               loggedIn={loggedIn}
               setLoggedIn={setLoggedIn}

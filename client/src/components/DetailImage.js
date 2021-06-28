@@ -1,6 +1,5 @@
-/* import styled from 'styled-components/macro'; */
+import styled from 'styled-components/macro';
 import { useState } from 'react';
-import styled from 'styled-components';
 
 export default function ImageGallery({ market, imageWidth }) {
   const [imageToShow, setImageToShow] = useState('');
@@ -44,7 +43,6 @@ export default function ImageGallery({ market, imageWidth }) {
   return (
     <>
       <div>{imageCards}</div>
-
       {lightboxDisplay ? (
         <LightBox id="lightbox" onClick={hideLightBox}>
           <StyledButton onClick={showPrev}>⭠</StyledButton>

@@ -1,4 +1,3 @@
-/* import { useState } from 'react'; */
 import styled from 'styled-components/macro';
 import Comments from '../components/Comments.js';
 import ImageGallery from '../components/DetailImage.js';

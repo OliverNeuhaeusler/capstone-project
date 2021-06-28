@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import { validateProfile } from '../lib/validation.js';
-import registerUser from '../components/registerUser.js';
+import registerUser from '../lib/registerUser.js';
 
 export default function CreateProfile() {
   const initialProfileState = {

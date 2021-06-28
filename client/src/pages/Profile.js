@@ -1,45 +1,31 @@
-import { useEffect, useState } from 'react';
 import styled from 'styled-components/macro';
 import Login from '../components/Login.js';
-import { loadToken } from '../lib/tokenStorage.js';
-import {
-  saveToLocalStorage,
-  loadFromLocalStorage,
-} from '../lib/localStorage.js';
 
-function ProfileCard({ loggedIn, setLoggedIn, onLogOut }) {
-  const [profile, setProfile] = useState(loadFromLocalStorage('Profile') ?? []);
-
-  useEffect(() => {
-    getProfile()
-      .then((profile) => setProfile(profile))
-      .then(saveToLocalStorage('Profile', profile));
-  }, [profile]);
-
-  function getProfile() {
-    return fetch('/profile', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'auth-token': loadToken(),
-      },
-    }).then((res) => res.json());
-  }
-
+function ProfileCard({
+  loggedIn,
+  setLoggedIn,
+  onLogOut,
+  profiles,
+  getProfile,
+}) {
   return (
     <Section>
       {loggedIn ? (
         <>
           <article>
-            <h3>{profile.firstName}</h3>
-            <h3>{profile.secondName}</h3>
+            <h3>{profiles.firstName}</h3>
+            <h3>{profiles.secondName}</h3>
           </article>
-          <p>{profile.street}</p>
-          <p>{profile.address}</p>
+          <p>{profiles.street}</p>
+          <p>{profiles.address}</p>
           <StyledButton onClick={onLogOut}>Logout</StyledButton>
         </>
       ) : (
-        <Login loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
+        <Login
+          loggedIn={loggedIn}
+          setLoggedIn={setLoggedIn}
+          getProfile={getProfile}
+        />
       )}
     </Section>
   );

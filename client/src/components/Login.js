@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components/macro';
-import logInUser from './loginUser.js';
+import logInUser from '../lib/loginUser.js';
 import { saveToken } from '../lib/tokenStorage.js';
 
-export default function Login({ setLoggedIn }) {
+export default function Login({ setLoggedIn, getProfile }) {
   const [profile, setProfile] = useState([]);
 
   const history = useHistory();
@@ -18,6 +18,7 @@ export default function Login({ setLoggedIn }) {
         } else {
           setLoggedIn(true);
           saveToken(result.token);
+          getProfile();
           history.push('/profile');
         }
       })
