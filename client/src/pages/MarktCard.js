@@ -12,7 +12,6 @@ function MarketCard({
   onAddComment,
   onAddRating,
 }) {
-  /*  const [detailImage, setDetailImage] = useState(true); */
   return (
     <Section>
       <Bookmark
@@ -64,7 +63,6 @@ const Section = styled.section`
   width: 40%;
   position: relative;
   text-align: center;
-  z-index: 1;
 
   p {
     margin: 0.1rem;

@@ -60,7 +60,7 @@ export default function ImageGallery({ market, imageWidth }) {
 
 const LightBoxImg = styled.img`
   object-fit: cover;
-  max-width: 70%;
+  max-width: 30%;
   min-width: 30%;
 `;
 
