@@ -106,6 +106,8 @@ const Form = styled.form`
   gap: 0.5rem;
   margin: auto;
   max-width: 25rem;
+  padding: 0 2rem;
+  text-align: center;
 
   input {
     margin-bottom: 0.3rem;

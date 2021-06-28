@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components/macro';
+import Login from '../components/Login.js';
 import { loadToken } from '../lib/tokenStorage.js';
 
-function ProfileCard({ loggedIn }) {
+function ProfileCard({ loggedIn, setLoggedIn, onLogOut }) {
   const [profile, setProfile] = useState([]);
 
   useEffect(() => {
@@ -29,9 +30,10 @@ function ProfileCard({ loggedIn }) {
           </article>
           <p>{profile.street}</p>
           <p>{profile.address}</p>
+          <StyledButton onClick={onLogOut}>Logout</StyledButton>
         </>
       ) : (
-        <p>Bitte melde dich zuerst an.</p>
+        <Login loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
       )}
     </Section>
   );
@@ -60,6 +62,17 @@ const Section = styled.section`
   h3 {
     padding-left: 0.5rem;
   }
+`;
+
+const StyledButton = styled.button`
+  background: hsl(37, 19%, 70%);
+  border: 1px solid hsl(37, 19%, 70%);
+  border-radius: 1.25rem;
+  color: hsl(20, 38%, 26%);
+  cursor: pointer;
+  margin: 0.313rem auto 1rem;
+  outline: none;
+  padding: 0.3rem 0.7rem;
 `;
 
 export default ProfileCard;

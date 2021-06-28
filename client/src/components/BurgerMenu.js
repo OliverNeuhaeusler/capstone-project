@@ -7,30 +7,34 @@ import Fav from '../assets/manuscriptgrey.png';
 import Med from '../assets/swords.png';
 import Profile from '../assets/king.png';
 
-function BurgerMenu({ open }) {
+function BurgerMenu({ open, setOpen }) {
   return (
     <Menu open={open}>
-      <NavLink exact to="/">
+      <NavLink onClick={() => setOpen(!open)} exact to="/">
         Home <img src={Castle} alt="Home" />
       </NavLink>
-      <NavLink to="/market">
+      <NavLink onClick={() => setOpen(!open)} to="/market">
         Märkte
         <img src={Book} alt="Book" />
       </NavLink>
-      <NavLink to="/favorites">
+      <NavLink onClick={() => setOpen(!open)} to="/favorites">
         Favoriten <img src={Fav} alt="Favorites" />
       </NavLink>
-      <NavLink to="/createmarket">
+      <NavLink onClick={() => setOpen(!open)} to="/createmarket">
         Markt erstellen <img src={Med} alt="create festivals" />
       </NavLink>
-      <NavLink to="/createProfile">
+      <NavLink onClick={() => setOpen(!open)} to="/createProfile">
         Profil erstellen <img src={Profile} alt="create profile" />
       </NavLink>
-      <NavLink to="/profile">
+      <NavLink onClick={() => setOpen(!open)} to="/profile">
         Profil <img src={Profile} alt="create profile" />
       </NavLink>
-      <NavLink to="/contact">Kontakt</NavLink>
-      <NavLink to="/impressum">Impressum</NavLink>
+      <NavLink onClick={() => setOpen(!open)} to="/contact">
+        Kontakt
+      </NavLink>
+      <NavLink onClick={() => setOpen(!open)} to="/impressum">
+        Impressum
+      </NavLink>
     </Menu>
   );
 }

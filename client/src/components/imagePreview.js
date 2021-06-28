@@ -1,10 +1,15 @@
 import styled from 'styled-components/macro';
 
-export default function ImagePreview({ market, imageWidth }) {
+export default function ImagePreview({ market, imageWidth, setDetailImage }) {
   return (
     <ImageWrapper>
       {market.images.map((image, index) => (
-        <Img width={imageWidth} key={index + image} src={image} />
+        <Img
+          onClick={() => setDetailImage(false)}
+          width={imageWidth}
+          key={index + image}
+          src={image}
+        />
       ))}
     </ImageWrapper>
   );
@@ -22,4 +27,5 @@ const ImageWrapper = styled.section`
 
 const Img = styled.img`
   padding: 0.4rem;
+  cursor: pointer;
 `;
