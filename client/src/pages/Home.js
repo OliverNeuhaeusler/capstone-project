@@ -32,6 +32,6 @@ const Section = styled.section`
 `;
 
 const Img = styled.img`
-  width: 50%;
   min-width: 20%;
+  width: 50%;
 `;

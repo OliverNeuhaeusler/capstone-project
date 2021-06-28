@@ -2,8 +2,6 @@
 import styled from 'styled-components/macro';
 import Comments from '../components/Comments.js';
 import ImageGallery from '../components/DetailImage.js';
-/* import ImagePreview from '../components/imagePreview.js';
-import DetailImages from '../components/DetailImage.js'; */
 import RatingStar from '../components/Rating.js';
 import Manus from '../assets/manuscript.png';
 
