@@ -1,5 +1,5 @@
 import styled from 'styled-components/macro';
-
+import HomeImage from '../assets/MittelaltermarktApp.jpeg';
 function Home() {
   return (
     <Section>
@@ -10,9 +10,10 @@ function Home() {
       </p>
       <p>
         Falls ein Markt noch nicht mit dabei ist füget ihn doch gerne hinzu. Nun
-        wünsche ich dir viel spaß beim suchen deines nächsten Marktes. Seid
+        wünsche ich dir viel Spaß beim suchen deines nächsten Marktes. Seid
         gegrüßt
       </p>
+      <Img src={HomeImage} alt="" />
     </Section>
   );
 }
@@ -28,4 +29,9 @@ const Section = styled.section`
   margin: auto;
   padding: 1rem;
   text-align: center;
+`;
+
+const Img = styled.img`
+  width: 50%;
+  min-width: 20%;
 `;
