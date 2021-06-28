@@ -144,7 +144,7 @@ function App() {
       <Headers />
       <main>
         <Burger open={open} setOpen={setOpen} />
-        <BurgerMenu open={open} setOpen={setOpen} />
+        <BurgerMenu loggedIn={loggedIn} open={open} setOpen={setOpen} />
         <Switch>
           <Route exact path="/">
             <Home />

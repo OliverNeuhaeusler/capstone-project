@@ -7,7 +7,7 @@ import Fav from '../assets/manuscriptgrey.png';
 import Med from '../assets/swords.png';
 import Profile from '../assets/king.png';
 
-function BurgerMenu({ open, setOpen }) {
+function BurgerMenu({ open, setOpen, loggedIn }) {
   return (
     <Menu open={open}>
       <NavLink onClick={() => setOpen(!open)} exact to="/">
@@ -27,7 +27,8 @@ function BurgerMenu({ open, setOpen }) {
         Profil erstellen <img src={Profile} alt="create profile" />
       </NavLink>
       <NavLink onClick={() => setOpen(!open)} to="/profile">
-        Profil <img src={Profile} alt="create profile" />
+        {loggedIn ? 'Profil' : 'Login'}{' '}
+        <img src={Profile} alt="create profile" />
       </NavLink>
       <NavLink onClick={() => setOpen(!open)} to="/contact">
         Kontakt

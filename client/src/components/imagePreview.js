@@ -26,6 +26,6 @@ const ImageWrapper = styled.section`
 `;
 
 const Img = styled.img`
-  padding: 0.4rem;
   cursor: pointer;
+  padding: 0.4rem;
 `;
