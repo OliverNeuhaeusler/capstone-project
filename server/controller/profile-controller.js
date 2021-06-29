@@ -1,22 +1,6 @@
 import jwt from 'jsonwebtoken';
 import Profile from '../models/profile.model.js';
 
-/* function postProfiles(req, res) {
-  const profile = new Profile({
-    firstName: req.body.firstName,
-    secondName: req.body.secondName,
-    street: req.body.street,
-    address: req.body.address,
-    email: req.body.email,
-    password: req.body.password,
-    image: req.body.image,
-  });
-  profile
-    .save()
-    .then((profileSaved) => res.json(profileSaved))
-    .catch((error) => res.json(error));
-} */
-
 function getProfiles(req, res) {
   const token = req.header('auth-token');
   const decodedToken = jwt.decode(token);
@@ -34,4 +18,4 @@ function getProfiles(req, res) {
   });
 }
 
-export { /* postProfiles, */ getProfiles };
+export { getProfiles };

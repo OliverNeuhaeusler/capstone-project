@@ -58,8 +58,8 @@ function App() {
       },
     })
       .then((res) => res.json())
-      .then((profiles) => setProfiles(profiles))
-      .then(saveToLocalStorage('Profile', profiles));
+      .then(saveToLocalStorage('Profile', profiles))
+      .then((profiles) => setProfiles(profiles));
   }
 
   function addMarket(market) {

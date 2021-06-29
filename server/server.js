@@ -29,9 +29,6 @@ server.get('/health', (req, res) =>
   res.json({ status: 'Server is running. ' })
 );
 server.use('/api', [marketRoutes, profileRoutes, authRoutes]);
-/* server.use(marketRoutes);
-server.use(profileRoutes);
-server.use(authRoutes); */
 
 server.use(express.static(path.join(__dirname, '../client/build')));
 server.get('/*', (req, res) => {
