@@ -12,8 +12,7 @@ const __dirname = dirname(import.meta.url);
 dotenv.config();
 
 const connectionString =
-  process.env
-    .DB_CONNECTION; /* ||  'mongodb://localhost:27017/medieval-market'  */
+  process.env.DB_CONNECTION || 'mongodb://localhost:27017/medieval-market';
 
 mongoose.connect(connectionString, {
   useNewUrlParser: true,
@@ -29,9 +28,10 @@ server.use(cors());
 server.get('/health', (req, res) =>
   res.json({ status: 'Server is running. ' })
 );
-server.use(marketRoutes);
+server.use('/api', [marketRoutes, profileRoutes, authRoutes]);
+/* server.use(marketRoutes);
 server.use(profileRoutes);
-server.use(authRoutes);
+server.use(authRoutes); */
 
 server.use(express.static(path.join(__dirname, '../client/build')));
 server.get('/*', (req, res) => {

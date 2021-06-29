@@ -1,5 +1,5 @@
 export default function registerUser(data) {
-  return fetch('/createProfile', {
+  return fetch('/api/createProfile', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

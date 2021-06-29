@@ -1,5 +1,5 @@
 export default function logInUser(data) {
-  return fetch('/login', {
+  return fetch('/api/login', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

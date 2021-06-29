@@ -33,7 +33,7 @@ function App() {
   const history = useHistory();
 
   useEffect(() => {
-    fetch('/market')
+    fetch('/api/market')
       .then((result) => result.json())
       .then((marketFromApi) => setMarkets(marketFromApi))
       .catch((error) => console.error(error));
@@ -50,7 +50,7 @@ function App() {
   }, [bookmarkedMarkets]);
 
   function getProfile() {
-    return fetch('/profile', {
+    return fetch('/api/profile', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -63,7 +63,7 @@ function App() {
   }
 
   function addMarket(market) {
-    fetch('/market', {
+    fetch('/api/market', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -130,7 +130,7 @@ function App() {
     markets.map((market) => {
       if (market._id === marketToUpdate._id) {
         market[marketProperty].push(commentOrRating);
-        fetch('/market/' + marketToUpdate._id, {
+        fetch('/api/market/' + marketToUpdate._id, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
