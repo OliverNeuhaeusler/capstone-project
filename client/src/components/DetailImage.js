@@ -90,5 +90,5 @@ const StyledButton = styled.button`
   cursor: pointer;
   margin: 1rem 1rem;
   outline: none;
-  padding: 0.3rem 0.7rem 0.15rem;
+  padding: 0.5rem 1rem 0.4rem;
 `;
