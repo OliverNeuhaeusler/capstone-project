@@ -58,8 +58,8 @@ export default function ImageGallery({ market, imageWidth }) {
 
 const LightBoxImg = styled.img`
   object-fit: cover;
-  max-width: 30%;
-  min-width: 30%;
+  max-width: 70%;
+  min-width: 40%;
 `;
 
 const LightBox = styled.div`
@@ -79,7 +79,7 @@ const Img = styled.img`
   cursor: pointer;
   object-fit: cover;
   padding: 0.4rem;
-  width: 60px;
+  min-width: 70px;
 `;
 
 const StyledButton = styled.button`

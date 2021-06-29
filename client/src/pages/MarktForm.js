@@ -107,7 +107,7 @@ export default function MarketForm({ onAddMarket, loggedIn }) {
                 setImageUploads(e.target.files);
               }}
             ></input>
-            <ImagePreview imageWidth={30} market={market} />
+            <ImagePreview imageWidth={60} market={market} />
             <Button isPrimary onClick={handleFormSubmit}>
               Markt erstellen.
             </Button>

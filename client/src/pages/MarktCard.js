@@ -23,7 +23,7 @@ function MarketCard({
       <p>{market.street}</p>
       <p>{market.address}</p>
       <p>{market.description}</p>
-      <ImageGallery market={market} imageWidth={60} />
+      <ImageGallery market={market} imageWidth={100} />
       <label htmlFor="comment">Kommentare</label>
       <Comments market={market} onAddComment={onAddComment} />
       <Rating>
