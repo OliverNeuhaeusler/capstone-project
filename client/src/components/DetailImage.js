@@ -85,7 +85,7 @@ const Img = styled.img`
 const StyledButton = styled.button`
   background: hsl(37, 19%, 70%);
   border: none;
-  border-radius: 100vw;
+  border-radius: 40px;
   color: hsl(20, 38%, 26%);
   cursor: pointer;
   margin: 1rem 1rem;
